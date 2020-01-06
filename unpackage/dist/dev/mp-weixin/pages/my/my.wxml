@@ -1,0 +1,1 @@
+<view class="my"><tabar vue-id="1" index="{{2}}" bind:__l="__l"></tabar><button data-event-opts="{{[['tap',[['login',['$event']]]]]}}" bindtap="__e">授权</button></view>

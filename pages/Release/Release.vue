@@ -1,0 +1,13 @@
+<template>
+	<view class="Release">
+		<navigator url="../index/index" hover-class="navigator-hover">
+			<button type="default">回到首页</button>
+		</navigator>
+	</view>
+</template>
+
+<script>
+</script>
+
+<style>
+</style>

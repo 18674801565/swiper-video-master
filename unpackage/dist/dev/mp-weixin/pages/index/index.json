@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "首页",
+  "navigationStyle": "custom",
+  "transparentTitle": "none",
+  "usingComponents": {
+    "chunlei-video": "/components/chunlei-video/chunlei-video",
+    "tabar": "/components/tabBar/tabBar"
+  }
+}
