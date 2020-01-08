@@ -24,7 +24,7 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.wap.data-v-7d5a6cdc {
+.wap.data-v-bb1a8072 {
   position: fixed;
   z-index: 999;
   left: 0;
@@ -33,47 +33,41 @@
   width: 100%;
   z-index: 999;
 }
-.wap_relative.data-v-7d5a6cdc {
+.wap_relative.data-v-bb1a8072 {
   width: 100%;
   height: 50px;
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
   -webkit-align-items: center;
-      -ms-flex-align: center;
           align-items: center;
   -webkit-justify-content: space-around;
-      -ms-flex-pack: distribute;
           justify-content: space-around;
 }
-.tabar.data-v-7d5a6cdc {
+.tabar.data-v-bb1a8072 {
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
   -webkit-align-items: center;
-      -ms-flex-align: center;
           align-items: center;
   -webkit-justify-content: space-around;
-      -ms-flex-pack: distribute;
           justify-content: space-around;
   width: 33%;
 }
-.tabar ._span.data-v-7d5a6cdc {
+.tabar ._span.data-v-bb1a8072 {
     font-size: 14px;
     color: lightslategray;
 }
-.tabar .spancolor.data-v-7d5a6cdc {
+.tabar .spancolor.data-v-bb1a8072 {
     color: #FFFFFF;
 }
-.tabar .issue.data-v-7d5a6cdc {
+.tabar .issue.data-v-bb1a8072 {
     height: 30px;
     width: 30px;
 }
-.tabar .cover-span.data-v-7d5a6cdc {
+.tabar .cover-span.data-v-bb1a8072 {
     display: inline;
     font-size: 16px;
     color: #FFFFFF;

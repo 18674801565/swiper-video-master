@@ -8,7 +8,7 @@
 		"minified": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.7.0",
+	"libVersion": "2.9.2",
 	"appid": "wx7f27da4c16fabb12",
 	"projectname": "chunLei-swiper",
 	"simulatorType": "wechat",
