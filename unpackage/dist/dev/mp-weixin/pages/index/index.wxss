@@ -4,29 +4,22 @@ swiper-item,
 scroll-view {
   display:-webkit-box;
   display:-webkit-flex;
-  display:-ms-flexbox;
   display:flex;
   -webkit-box-orient:vertical;
   -webkit-box-direction:normal;
   -webkit-flex-direction:column;
-      -ms-flex-direction:column;
           flex-direction:column;
   -webkit-flex-shrink: 0;
-      -ms-flex-negative: 0;
           flex-shrink: 0;
   -webkit-box-flex: 0;
   -webkit-flex-grow: 0;
-      -ms-flex-positive: 0;
           flex-grow: 0;
   -webkit-flex-basis: auto;
-      -ms-flex-preferred-size: auto;
           flex-basis: auto;
   -webkit-box-align: stretch;
   -webkit-align-items: stretch;
-      -ms-flex-align: stretch;
           align-items: stretch;
   -webkit-align-content: flex-start;
-      -ms-flex-line-pack: start;
           align-content: flex-start;
 }
 view,
@@ -40,53 +33,46 @@ textarea,
 video {
   position: relative;
   border: 0px solid #000000;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 swiper-item {
   position: absolute;
 }
 
 
-.swiper.data-v-4a374180 {
+.swiper.data-v-901b3d96 {
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
-	    -ms-flex: 1;
 	        flex: 1;
 	background-color: #000;
 }
-.swiper-item.data-v-4a374180 {
+.swiper-item.data-v-901b3d96 {
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
-	    -ms-flex: 1;
 	        flex: 1;
 }
-.video.data-v-4a374180 {
+.video.data-v-901b3d96 {
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
-	    -ms-flex: 1;
 	        flex: 1;
 }
-.video-box.data-v-4a374180 {
+.video-box.data-v-901b3d96 {
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
-	    -ms-flex: 1;
 	        flex: 1;
 }
-.cover-view-center.data-v-4a374180 {
+.cover-view-center.data-v-901b3d96 {
 	position: absolute;
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
-	    -ms-flex-pack: center;
 	        justify-content: center;
 	-webkit-box-align: center;
 	-webkit-align-items: center;
-	    -ms-flex-align: center;
 	        align-items: center;
 	opacity: 0.1;
 	z-index: 999;
 }
-.cover-view-left.data-v-4a374180 {
+.cover-view-left.data-v-901b3d96 {
 	position: absolute;
 	margin-left: 10rpx;
 	width: 500rpx;
@@ -96,42 +82,39 @@ swiper-item {
 	color: #FFFFFF;
 	
 	white-space: pre-wrap;
-	-o-text-overflow: ellipsis;
-	   text-overflow: ellipsis;
+	text-overflow: ellipsis;
 	overflow: hidden;
 	
 }
-.left-view.data-v-4a374180 {
+.left-view.data-v-901b3d96 {
 	margin-bottom: 20rpx;
 }
-.left-text.data-v-4a374180 {
+.left-text.data-v-901b3d96 {
 	font-size: 16px;
 	color: #FFFFFF;
 }
-.avater.data-v-4a374180 {
+.avater.data-v-901b3d96 {
 	border-radius: 50rpx;
 	border-color: #fff;
 	border-style: solid;
 	border-width: 2px;
 }
-.cover-view-right.data-v-4a374180 {
+.cover-view-right.data-v-901b3d96 {
 	position: absolute;
 	bottom: 160rpx;
 	right: 20rpx;
 	
 	display: -webkit-box;
 	display: -webkit-flex;
-	display: -ms-flexbox;
 	display: flex;
 	-webkit-box-orient: vertical;
 	-webkit-box-direction: normal;
 	-webkit-flex-direction: column;
-	    -ms-flex-direction: column;
 	        flex-direction: column;
 	
 	z-index: 9999;
 }
-.right-text-avater.data-v-4a374180 {
+.right-text-avater.data-v-901b3d96 {
 	position: absolute;
 	font-size: 14px;
 	top: 80rpx;
@@ -145,7 +128,7 @@ swiper-item {
 	line-height: 40rpx;
 	z-index: 999;
 }
-.avater-icon.data-v-4a374180 {
+.avater-icon.data-v-901b3d96 {
 	height: 40rpx;
 	width: 40rpx;
 
@@ -156,33 +139,30 @@ swiper-item {
 	left: 30rpx;
 	top: -20rpx;
 }
-.right-text.data-v-4a374180 {
+.right-text.data-v-901b3d96 {
 	text-align: center;
 	font-size: 14px;
 	color: #FFFFFF;
 	margin-bottom: 50rpx;
 	height: 20px;
 }
-.img.data-v-4a374180 {
+.img.data-v-901b3d96 {
 	height: 100rpx;
 	width: 100rpx;
 	opacity: 0.9;
 }
-.page.data-v-4a374180 {
+.page.data-v-901b3d96 {
 	
 	display: -webkit-box;
 	display: -webkit-flex;
-	display: -ms-flexbox;
 	display: flex;
 	-webkit-box-orient: vertical;
 	-webkit-box-direction: normal;
 	-webkit-flex-direction: column;
-	    -ms-flex-direction: column;
 	        flex-direction: column;
 	
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
-	    -ms-flex: 1;
 	        flex: 1;
 }
 

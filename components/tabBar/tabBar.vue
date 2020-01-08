@@ -27,7 +27,7 @@
 		},
 		methods: {
 			redirectTo(e) {
-				uni.navigateTo({
+				uni.redirectTo({
 					url: e
 				});
 			}
