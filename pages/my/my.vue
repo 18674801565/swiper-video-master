@@ -1,29 +1,35 @@
 <template>
 	<view class="my">
 		<!--  -->
-		<view class="head">
-			<view class="head-left">
-				<image :src="avatarUrl?avatarUrl:'../../static/logo.png'" @click="shade=true"></image>
-			</view>
-			<view class="head-right">
-				<view class="haed-edit">
-					编辑资料
+		<cover-image src="https://app.wlkqzs.com/15.jpg" class="top-img"></cover-image>
+		<view class="head-contain">
+			<view class="head">
+				<view class="head-left">
+					<image :src="user.avatarUrl?user.avatarUrl:'../../static/logo.png'" @click="shade=true"></image>
 				</view>
-				<view class="head-plus">
-					+好友
+				<view class="head-right">
+					<view class="haed-edit" @click="redirectTo('../../pages/my/userinfo/userinfo')">
+						<span>编辑资料</span>
+					</view>
+					<view class="head-plus">
+						<span class="r-add">+</span><span>好友</span>
+					</view>
 				</view>
 			</view>
 		</view>
+	
 		<!--  -->
 		<view class="middle">
 			<view class="middle-name">
-				{{nickName?nickName:'用户名'}}
+				{{user.nickName?user.nickName:'***'}}
 			</view>
 			<view class="middle-id">
-				id:<!-- {{OpenId?OpenId:''}} -->
+				倒斗号:{{user.myId}}
 			</view>
 			<view class="middle-introduction">
-				你还没有填写个人简介，点击添加
+				<cover-image class="gender" v-if="user.gender?true:false" :src="user.gender==1?'../../static/woman.png':'../../static/man.png'"></cover-image>
+				<view v-else-if="false">你还没有填写个人简介，点击添加</view>
+				
 			</view>
 		</view>
 		<!--  -->
@@ -67,11 +73,14 @@
 				<view :class="{'bottom-bar':true,'bottom-bar-color':tab==3?true:false}"></view>
 			</view>
 			<view class="bottom-main">
-				{{tab}}
+				<view v-if="tab===1?true:false">{{tab}}</view>
+				<view v-if="tab===2?true:false">{{tab}}</view>
+				<view v-if="tab===3?true:false">{{tab}}</view>
+				
 			</view>
 		</view>
-		<tabar :index="2" />
-		<!-- 授权登录 -->
+     <tabar :index="2" />
+	<!--	授权登录
 		<view class="shade" v-if="shade">
 			<view class="shade-relative">
 				<view class="shade-main">
@@ -81,7 +90,10 @@
 					<button @click="login" open-type="getUserInfo">授权</button>
 				</view>
 			</view>
+
 		</view>
+		</view>-->
+
 		
 	</view>
 </template>
@@ -100,10 +112,11 @@
 				tab:1,
 				SessionKey: '',
 				OpenId: '',
-				nickName: null,
+				//nickName: null,
 				avatarUrl: null,
 				gender: null,
-				isCanUse: uni.getStorageSync('isCanUse') || true //默认为true
+				isCanUse: uni.getStorageSync('isCanUse') || true ,//默认为true，
+				user:uni.getStorageSync('user')
 			}
 		},
 		onLoad() {
@@ -114,94 +127,12 @@
 			tabNav(e){
 				this.tab=e
 			},
-			//登录
-			login() {
-				let _this = this;
-				_this.shade=false;
-				// uni.showLoading({
-				//     title: '登录中...'
-				// });
-
-				// 1.wx获取登录用户code
-				uni.login({
-					provider: 'weixin',
-					success: function(loginRes) {
-						let code = loginRes.code;
-						if (!_this.isCanUse) {
-							//非第一次授权获取用户信息
-							uni.getUserInfo({
-								provider: 'weixin',
-								success: function(infoRes) {
-									//获取用户信息后向调用信息更新方法
-									let nickName = infoRes.userInfo.nickName; //昵称
-									let avatarUrl = infoRes.userInfo.avatarUrl; //头像
-									_this.updateUserInfo(); //调用更新信息方法
-								}
-							});
-						}
-
-						//2.将用户登录code传递到后台置换用户SessionKey、OpenId等信息
-						request({
-							url: '/wechat/login',
-							data: {
-								code: code,
-							},
-							method: 'POST',
-							header: {
-								'content-type': 'application/json'
-							},
-							success: (res) => {
-								//openId、或SessionKdy存储//隐藏loading
-								console.log(res)
-								if (res.data.status === 200) {
-									uni.setStorageSync('token', res.data.token);
-								}
-								console.log('token', uni.getStorageSync('token'))
-								//授权成功后获取用户数据存入数据库
-								uni.getUserInfo({
-									provider: 'weixin',
-									success: function(infoRes) {
-										//获取用户信息后向调用信息更新方法
-										console.log(infoRes.userInfo)
-										_this.nickName = infoRes.userInfo.nickName; //昵称
-										_this.avatarUrl = infoRes.userInfo.avatarUrl; //头像
-										_this.gender = infoRes.userInfo.gender
-										_this.updateUserInfo(); //调用更新用户信息方法
-									}
-								});
-								// uni.hideLoading();
-							}
-						});
-					},
-				});
-			},
-			//向后台更新信息
-			updateUserInfo() {
-				let _this = this;
-				console.log('_this.nickName', _this.nickName)
-				request({
-					url: '/wechat/update/userinfo', //服务器端地址
-					data: {
-						phoneNumber: null,
-						nickName: _this.nickName,
-						headUrl: _this.avatarUrl,
-						gender: _this.gender
-					},
-					method: 'POST',
-					header: {
-						'content-type': 'application/json'
-					},
-					success: (res) => {
-						if (res.data.status === 200) {
-							console.log(res)
-							// uni.reLaunch({ //信息更新成功后跳转到小程序首页
-							// 	url: '/pages/index/index'
-							// });
-						}
-					}
-
+			redirectTo(e) {
+				uni.navigateTo({
+					url: e
 				});
 			}
+
 		}
 	}
 </script>
@@ -212,24 +143,40 @@
 		width: 100%;
 	}
 
-	// 
+
+    
+	
+		
+	.head-contain{
+		height: 160rpx;
+		width: 100%;
+	}
 	.head {
 		display: flex;
 		align-items: center;
-		padding: 100rpx 40rpx 50rpx;
+		padding: 0rpx 40rpx 50rpx;
 		box-sizing: border-box;
 		justify-content: space-between;
-
+        position: relative;
 		.head-left {
+			position: absolute;
+			top: -60rpx;
 			image {
 				height: 180rpx;
 				width: 180rpx;
 				border-radius: 50%;
 			}
+			.top-img{
+					 height:300rpx;
+					 width: 100%;
+			}
 		}
 
 		.head-right {
 			display: flex;
+            position: absolute;
+            top: 40rpx;
+            right: 5%;
 
 			.haed-edit {
 				color: #D8D9DC;
@@ -246,6 +193,13 @@
 				padding: 20rpx 40rpx;
 				font-size: 30rpx;
 				border-radius: 5rpx;
+					
+				.r-add{
+					//font-size: 38rpx;
+					padding-right: 4rpx;
+					font-weight: 650;
+				}
+
 			}
 		}
 	}
@@ -271,6 +225,12 @@
 			padding: 30rpx 0;
 			font-size: 30rpx;
 			color: #FFFFFF;
+
+			.gender{
+				height: 36rpx;
+				width: 36rpx;
+			}
+
 		}
 	}
 	// 

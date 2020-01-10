@@ -241,7 +241,7 @@ var promiseInterceptor = {
 
 
 var SYNC_API_RE =
-/^\$|restoreGlobal|getCurrentSubNVue|getMenuButtonBoundingClientRect|^report|interceptors|Interceptor$|getSubNVueById|requireNativePlugin|upx2px|hideKeyboard|canIUse|^create|Sync$|Manager$|base64ToArrayBuffer|arrayBufferToBase64/;
+/^\$|getMenuButtonBoundingClientRect|^report|interceptors|Interceptor$|getSubNVueById|requireNativePlugin|upx2px|hideKeyboard|canIUse|^create|Sync$|Manager$|base64ToArrayBuffer|arrayBufferToBase64/;
 
 var CONTEXT_API_RE = /^create|Manager$/;
 
@@ -255,7 +255,7 @@ function isSyncApi(name) {
 }
 
 function isCallbackApi(name) {
-  return CALLBACK_API_RE.test(name) && name !== 'onPush';
+  return CALLBACK_API_RE.test(name);
 }
 
 function handlePromise(promise) {
@@ -354,7 +354,6 @@ var interceptors = {
 
 
 var baseApi = /*#__PURE__*/Object.freeze({
-  __proto__: null,
   upx2px: upx2px,
   interceptors: interceptors,
   addInterceptor: addInterceptor,
@@ -485,7 +484,6 @@ function wrapper(methodName, method) {
 var todoApis = Object.create(null);
 
 var TODOS = [
-'onTabBarMidButtonTap',
 'subscribePush',
 'unsubscribePush',
 'onPush',
@@ -541,7 +539,6 @@ function getProvider(_ref2)
 }
 
 var extraApi = /*#__PURE__*/Object.freeze({
-  __proto__: null,
   getProvider: getProvider });
 
 
@@ -577,7 +574,6 @@ function $emit() {
 }
 
 var eventApi = /*#__PURE__*/Object.freeze({
-  __proto__: null,
   $on: $on,
   $off: $off,
   $once: $once,
@@ -586,8 +582,8 @@ var eventApi = /*#__PURE__*/Object.freeze({
 
 
 
-var api = /*#__PURE__*/Object.freeze({
-  __proto__: null });
+var api = /*#__PURE__*/Object.freeze({});
+
 
 
 var MPPage = Page;
@@ -1088,18 +1084,6 @@ function handleEvent(event) {var _this = this;
           {// mp-weixin,mp-toutiao 抽象节点模拟 scoped slots
             handlerCtx = handlerCtx.$parent.$parent;
           }
-          if (methodName === '$emit') {
-            handlerCtx.$emit.apply(handlerCtx,
-            processEventArgs(
-            _this.$vm,
-            event,
-            eventArray[1],
-            eventArray[2],
-            isCustom,
-            methodName));
-
-            return;
-          }
           var handler = handlerCtx[methodName];
           if (!isFn(handler)) {
             throw new Error(" _vm.".concat(methodName, " is not a function"));
@@ -1192,8 +1176,6 @@ function parseBaseApp(vm, _ref3)
 
 
       this.$vm.$scope = this;
-      // vm 上也挂载 globalData
-      this.$vm.globalData = this.globalData;
 
       this.$vm._isMounted = true;
       this.$vm.__call_hook('mounted', args);
@@ -1204,13 +1186,6 @@ function parseBaseApp(vm, _ref3)
 
   // 兼容旧版本 globalData
   appOptions.globalData = vm.$options.globalData || {};
-  // 将 methods 中的方法挂在 getApp() 中
-  var methods = vm.$options.methods;
-  if (methods) {
-    Object.keys(methods).forEach(function (name) {
-      appOptions[name] = methods[name];
-    });
-  }
 
   initHooks(appOptions, hooks);
 
@@ -1221,17 +1196,14 @@ var mocks = ['__route__', '__wxExparserNodeId__', '__wxWebviewId__'];
 
 function findVmByVueId(vm, vuePid) {
   var $children = vm.$children;
-  // 优先查找直属(反向查找:https://github.com/dcloudio/uni-app/issues/1200)
-  for (var i = $children.length - 1; i >= 0; i--) {
-    var childVm = $children[i];
-    if (childVm.$scope._$vueId === vuePid) {
-      return childVm;
-    }
+  // 优先查找直属
+  var parentVm = $children.find(function (childVm) {return childVm.$scope._$vueId === vuePid;});
+  if (parentVm) {
+    return parentVm;
   }
   // 反向递归查找
-  var parentVm;
-  for (var _i = $children.length - 1; _i >= 0; _i--) {
-    parentVm = findVmByVueId($children[_i], vuePid);
+  for (var i = $children.length - 1; i >= 0; i--) {
+    parentVm = findVmByVueId($children[i], vuePid);
     if (parentVm) {
       return parentVm;
     }
@@ -1310,20 +1282,11 @@ function parseBaseComponent(vueComponentOptions)
 {var _ref5 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},isPage = _ref5.isPage,initRelation = _ref5.initRelation;var _initVueComponent =
   initVueComponent(_vue.default, vueComponentOptions),_initVueComponent2 = _slicedToArray(_initVueComponent, 2),VueComponent = _initVueComponent2[0],vueOptions = _initVueComponent2[1];
 
-  var options = {
-    multipleSlots: true,
-    addGlobalClass: true };
-
-
-  {
-    // 微信 multipleSlots 部分情况有 bug，导致内容顺序错乱 如 u-list，提供覆盖选项
-    if (vueOptions['mp-weixin'] && vueOptions['mp-weixin']['options']) {
-      Object.assign(options, vueOptions['mp-weixin']['options']);
-    }
-  }
-
   var componentOptions = {
-    options: options,
+    options: {
+      multipleSlots: true,
+      addGlobalClass: true },
+
     data: initData(vueOptions, _vue.default.prototype),
     behaviors: initBehaviors(vueOptions, initBehavior),
     properties: initProperties(vueOptions.props, false, vueOptions.__file),
@@ -1543,7 +1506,7 @@ uni$1;exports.default = _default;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(global) {/*!
- * Vue.js v2.6.11
+ * Vue.js v2.6.10
  * (c) 2014-2019 Evan You
  * Released under the MIT License.
  */
@@ -2242,13 +2205,7 @@ var uid = 0;
  * directives subscribing to it.
  */
 var Dep = function Dep () {
-  // fixed by xxxxxx (nvue vuex)
-  /* eslint-disable no-undef */
-  if(typeof SharedObject !== 'undefined'){
-    this.id = SharedObject.uid++;
-  } else {
-    this.id = uid++;
-  }
+  this.id = uid++;
   this.subs = [];
 };
 
@@ -3512,7 +3469,7 @@ if (typeof Promise !== 'undefined' && isNative(Promise)) {
   };
 } else if (typeof setImmediate !== 'undefined' && isNative(setImmediate)) {
   // Fallback to setImmediate.
-  // Technically it leverages the (macro) task queue,
+  // Techinically it leverages the (macro) task queue,
   // but it is still a better choice than setTimeout.
   timerFunc = function () {
     setImmediate(flushCallbacks);
@@ -3578,7 +3535,7 @@ if (true) {
     warn(
       "Property \"" + key + "\" must be accessed with \"$data." + key + "\" because " +
       'properties starting with "$" or "_" are not proxied in the Vue instance to ' +
-      'prevent conflicts with Vue internals. ' +
+      'prevent conflicts with Vue internals' +
       'See: https://vuejs.org/v2/api/#data',
       target
     );
@@ -3778,48 +3735,17 @@ function updateListeners (
 
 /*  */
 
-// fixed by xxxxxx (mp properties)
-function extractPropertiesFromVNodeData(data, Ctor, res, context) {
-  var propOptions = Ctor.options.mpOptions && Ctor.options.mpOptions.properties;
-  if (isUndef(propOptions)) {
-    return res
-  }
-  var externalClasses = Ctor.options.mpOptions.externalClasses || [];
-  var attrs = data.attrs;
-  var props = data.props;
-  if (isDef(attrs) || isDef(props)) {
-    for (var key in propOptions) {
-      var altKey = hyphenate(key);
-      var result = checkProp(res, props, key, altKey, true) ||
-          checkProp(res, attrs, key, altKey, false);
-      // externalClass
-      if (
-        result &&
-        res[key] &&
-        externalClasses.indexOf(altKey) !== -1 &&
-        context[camelize(res[key])]
-      ) {
-        // 赋值 externalClass 真正的值(模板里 externalClass 的值可能是字符串)
-        res[key] = context[camelize(res[key])];
-      }
-    }
-  }
-  return res
-}
-
 function extractPropsFromVNodeData (
   data,
   Ctor,
-  tag,
-  context// fixed by xxxxxx
+  tag
 ) {
   // we are only extracting raw values here.
   // validation and default values are handled in the child
   // component itself.
   var propOptions = Ctor.options.props;
   if (isUndef(propOptions)) {
-    // fixed by xxxxxx
-    return extractPropertiesFromVNodeData(data, Ctor, {}, context)
+    return
   }
   var res = {};
   var attrs = data.attrs;
@@ -3847,8 +3773,7 @@ function extractPropsFromVNodeData (
       checkProp(res, attrs, key, altKey, false);
     }
   }
-  // fixed by xxxxxx
-  return extractPropertiesFromVNodeData(data, Ctor, res, context)
+  return res
 }
 
 function checkProp (
@@ -4181,12 +4106,12 @@ function renderList (
   if (Array.isArray(val) || typeof val === 'string') {
     ret = new Array(val.length);
     for (i = 0, l = val.length; i < l; i++) {
-      ret[i] = render(val[i], i, i, i); // fixed by xxxxxx
+      ret[i] = render(val[i], i);
     }
   } else if (typeof val === 'number') {
     ret = new Array(val);
     for (i = 0; i < val; i++) {
-      ret[i] = render(i + 1, i, i, i); // fixed by xxxxxx
+      ret[i] = render(i + 1, i);
     }
   } else if (isObject(val)) {
     if (hasSymbol && val[Symbol.iterator]) {
@@ -4194,7 +4119,7 @@ function renderList (
       var iterator = val[Symbol.iterator]();
       var result = iterator.next();
       while (!result.done) {
-        ret.push(render(result.value, ret.length, i++, i)); // fixed by xxxxxx
+        ret.push(render(result.value, ret.length));
         result = iterator.next();
       }
     } else {
@@ -4202,7 +4127,7 @@ function renderList (
       ret = new Array(keys.length);
       for (i = 0, l = keys.length; i < l; i++) {
         key = keys[i];
-        ret[i] = render(val[key], key, i, i); // fixed by xxxxxx
+        ret[i] = render(val[key], key, i);
       }
     }
   }
@@ -4237,8 +4162,7 @@ function renderSlot (
       }
       props = extend(extend({}, bindObject), props);
     }
-    // fixed by xxxxxx app-plus scopedSlot
-    nodes = scopedSlotFn(props, this, props._i) || fallback;
+    nodes = scopedSlotFn(props) || fallback;
   } else {
     nodes = this.$slots[name] || fallback;
   }
@@ -4466,7 +4390,7 @@ function bindDynamicKeys (baseObj, values) {
     if (typeof key === 'string' && key) {
       baseObj[values[i]] = values[i + 1];
     } else if ( true && key !== '' && key !== null) {
-      // null is a special value for explicitly removing a binding
+      // null is a speical value for explicitly removing a binding
       warn(
         ("Invalid value for dynamic directive argument (expected string or null): " + key),
         this
@@ -4690,8 +4614,6 @@ var componentVNodeHooks = {
     var context = vnode.context;
     var componentInstance = vnode.componentInstance;
     if (!componentInstance._isMounted) {
-      callHook(componentInstance, 'onServiceCreated');
-      callHook(componentInstance, 'onServiceAttached');
       componentInstance._isMounted = true;
       callHook(componentInstance, 'mounted');
     }
@@ -4781,7 +4703,7 @@ function createComponent (
   }
 
   // extract props
-  var propsData = extractPropsFromVNodeData(data, Ctor, tag, context); // fixed by xxxxxx
+  var propsData = extractPropsFromVNodeData(data, Ctor, tag);
 
   // functional component
   if (isTrue(Ctor.options.functional)) {
@@ -4964,12 +4886,6 @@ function _createElement (
     ns = (context.$vnode && context.$vnode.ns) || config.getTagNamespace(tag);
     if (config.isReservedTag(tag)) {
       // platform built-in elements
-      if ( true && isDef(data) && isDef(data.nativeOn)) {
-        warn(
-          ("The .native modifier for v-on is only valid on components but it was used on <" + tag + ">."),
-          context
-        );
-      }
       vnode = new VNode(
         config.parsePlatformTagName(tag), data, children,
         undefined, undefined, context
@@ -5095,7 +5011,7 @@ function renderMixin (Vue) {
     // render self
     var vnode;
     try {
-      // There's no need to maintain a stack because all render fns are called
+      // There's no need to maintain a stack becaues all render fns are called
       // separately from one another. Nested component's render fns are called
       // when parent component is patched.
       currentRenderingInstance = vm;
@@ -5630,10 +5546,7 @@ function updateChildComponent (
     // keep a copy of raw propsData
     vm.$options.propsData = propsData;
   }
-  
-  // fixed by xxxxxx update properties(mp runtime)
-  vm._$updateProperties && vm._$updateProperties(vm);
-  
+
   // update listeners
   listeners = listeners || emptyObject;
   var oldListeners = vm.$options._parentListeners;
@@ -6952,7 +6865,7 @@ Object.defineProperty(Vue, 'FunctionalRenderContext', {
   value: FunctionalRenderContext
 });
 
-Vue.version = '2.6.11';
+Vue.version = '2.6.10';
 
 /**
  * https://raw.githubusercontent.com/Tencent/westore/master/packages/westore/utils/diff.js
@@ -7342,13 +7255,7 @@ function getTarget(obj, path) {
 function internalMixin(Vue) {
 
   Vue.config.errorHandler = function(err) {
-    /* eslint-disable no-undef */
-    var app = getApp();
-    if (app && app.onError) {
-      app.onError(err);
-    } else {
-      console.error(err);
-    }
+    console.error(err);
   };
 
   var oldEmit = Vue.prototype.$emit;
@@ -7368,21 +7275,9 @@ function internalMixin(Vue) {
 
   MP_METHODS.forEach(function (method) {
     Vue.prototype[method] = function(args) {
-      if (this.$scope && this.$scope[method]) {
+      if (this.$scope) {
         return this.$scope[method](args)
       }
-      // mp-alipay
-      if (typeof my === 'undefined') {
-        return
-      }
-      if (method === 'createSelectorQuery') {
-        /* eslint-disable no-undef */
-        return my.createSelectorQuery(args)
-      } else if (method === 'createIntersectionObserver') {
-        /* eslint-disable no-undef */
-        return my.createIntersectionObserver(args)
-      }
-      // TODO mp-alipay 暂不支持 selectAllComponents,selectComponent
     };
   });
 
@@ -7403,7 +7298,7 @@ function internalMixin(Vue) {
       }
     }
     if (vm._hasHookEvent) {
-      vm.$emit('hook:' + hook, args);
+      vm.$emit('hook:' + hook);
     }
     popTarget();
     return ret
@@ -7594,9 +7489,9 @@ module.exports = g;
 
 /***/ }),
 /* 4 */
-/*!**********************************************************************!*\
-  !*** C:/Users/LGD/Desktop/dsp/swiper-video-master-master/pages.json ***!
-  \**********************************************************************/
+/*!*************************************************!*\
+  !*** F:/vs_code/swiper-video-master/pages.json ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7698,10 +7593,7 @@ var getPlatformName = function getPlatformName() {
 var getPackName = function getPackName() {
   var packName = '';
   if (getPlatformName() === 'wx' || getPlatformName() === 'qq') {
-    // 兼容微信小程序低版本基础库
-    if (uni.canIUse('getAccountInfoSync')) {
-      packName = uni.getAccountInfoSync().miniProgram.appId || '';
-    }
+    packName = uni.getAccountInfoSync().miniProgram.appId || '';
   }
   return packName;
 };
@@ -8313,7 +8205,7 @@ Stat = /*#__PURE__*/function (_Util) {_inherits(Stat, _Util);_createClass(Stat, 
     _this6 = _possibleConstructorReturn(this, _getPrototypeOf(Stat).call(this));
     _this6.instance = null;
     // 注册拦截器
-    if (typeof uni.addInterceptor === 'function' && "development" !== 'development') {
+    if (typeof uni.addInterceptor === 'function') {
       _this6.addInterceptorInit();
       _this6.interceptLogin();
       _this6.interceptShare(true);
@@ -8497,24 +8389,24 @@ main();
 /*! exports provided: _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _shasum, _spec, _where, author, bugs, bundleDependencies, deprecated, description, devDependencies, files, gitHead, homepage, license, main, name, repository, scripts, version, default */
 /***/ (function(module) {
 
-module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2.0.0-alpha-25120200103005","_inBundle":false,"_integrity":"sha512-nYoIrRV2e5o/vzr6foSdWi3Rl2p0GuO+LPY3JctyY6uTKgPnuH99d7aL/QQdJ1SacQjBWO+QGK1qankN7oyrWw==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@alpha","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"alpha","saveSpec":null,"fetchSpec":"alpha"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-alpha-25120200103005.tgz","_shasum":"a77a63481f36474f3e86686868051219d1bb12df","_spec":"@dcloudio/uni-stat@alpha","_where":"/Users/guoshengqiang/Documents/dcloud-plugins/alpha/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"6be187a3dfe15f95dd6146d9fec08e1f81100987","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-alpha-25120200103005"};
+module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.0.0-23320190923002","_inBundle":false,"_integrity":"sha512-MnftsvgOac3q1FCOBPzivbFn8GNQFo7D2DY325HeEZyFCWgx5GEwHpGYjT1PQU6v7DaDn0ruxa3ObdpUIYbmZw==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@next","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"next","saveSpec":null,"fetchSpec":"next"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-23320190923002.tgz","_shasum":"0c400c140ca0b3c05f52d25f11583cf05a0c4e9a","_spec":"@dcloudio/uni-stat@next","_where":"/Users/fxy/Documents/DCloud/HbuilderX-plugins/release/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"fed4c73fb9142a1b277dd79313939cad90693d3e","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-23320190923002"};
 
 /***/ }),
 /* 7 */
-/*!***************************************************************************************!*\
-  !*** C:/Users/LGD/Desktop/dsp/swiper-video-master-master/pages.json?{"type":"style"} ***!
-  \***************************************************************************************/
+/*!******************************************************************!*\
+  !*** F:/vs_code/swiper-video-master/pages.json?{"type":"style"} ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "首页", "navigationStyle": "custom", "transparentTitle": "none" }, "pages/my/my": { "navigationBarTitleText": "我的", "navigationStyle": "custom" }, "pages/Release/Release": { "navigationBarTitleText": "发布", "navigationStyle": "custom" }, "pages/login/login": { "navigationBarTitleText": "登录", "navigationStyle": "custom" } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "首页", "navigationStyle": "custom", "transparentTitle": "none", "usingComponents": { "chunlei-video": "/components/chunlei-video/chunlei-video", "tabar": "/components/tabBar/tabBar" } }, "pages/my/my": { "navigationBarTitleText": "我的", "navigationStyle": "custom", "usingComponents": { "tabar": "/components/tabBar/tabBar" } }, "pages/Release/Release": { "navigationBarTitleText": "发布", "navigationStyle": "custom", "usingComponents": {} }, "pages/login/login": { "navigationBarTitleText": "登录", "navigationStyle": "custom", "usingComponents": {} }, "pages/my/userinfo/userinfo": { "navigationBarTitleText": "我的详情", "navigationStyle": "custom" } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 /* 8 */
-/*!**************************************************************************************!*\
-  !*** C:/Users/LGD/Desktop/dsp/swiper-video-master-master/pages.json?{"type":"stat"} ***!
-  \**************************************************************************************/
+/*!*****************************************************************!*\
+  !*** F:/vs_code/swiper-video-master/pages.json?{"type":"stat"} ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8528,9 +8420,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* 12 */,
 /* 13 */,
 /* 14 */
-/*!**********************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
-  \**********************************************************************************************************/
+/*!********************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
+  \********************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -8551,26 +8443,12 @@ function normalizeComponent (
   injectStyles,
   scopeId,
   moduleIdentifier, /* server only */
-  shadowMode, /* vue-cli only */
-  components, // fixed by xxxxxx auto components
-  renderjs // fixed by xxxxxx renderjs
+  shadowMode /* vue-cli only */
 ) {
   // Vue.extend constructor export interop
   var options = typeof scriptExports === 'function'
     ? scriptExports.options
     : scriptExports
-
-  // fixed by xxxxxx auto components
-  if (components) {
-    options.components = Object.assign(components, options.components || {})
-  }
-  // fixed by xxxxxx renderjs
-  if (renderjs) {
-    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
-      this[renderjs.__module] = this
-    });
-    (options.mixins || (options.mixins = [])).push(renderjs)
-  }
 
   // render functions
   if (render) {
@@ -9453,9 +9331,9 @@ if (hadRuntime) {
 /* 32 */,
 /* 33 */,
 /* 34 */
-/*!****************************************************************************!*\
-  !*** C:/Users/LGD/Desktop/dsp/swiper-video-master-master/utils/request.js ***!
-  \****************************************************************************/
+/*!*******************************************************!*\
+  !*** F:/vs_code/swiper-video-master/utils/request.js ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9480,9 +9358,9 @@ request;exports.default = _default;
 
 /***/ }),
 /* 35 */
-/*!*********************************************************************!*\
-  !*** C:/Users/LGD/Desktop/dsp/swiper-video-master-master/config.js ***!
-  \*********************************************************************/
+/*!************************************************!*\
+  !*** F:/vs_code/swiper-video-master/config.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9496,9 +9374,9 @@ var _default =
 
 /***/ }),
 /* 36 */
-/*!**************************************************************************!*\
-  !*** C:/Users/LGD/Desktop/dsp/swiper-video-master-master/utils/login.js ***!
-  \**************************************************************************/
+/*!*****************************************************!*\
+  !*** F:/vs_code/swiper-video-master/utils/login.js ***!
+  \*****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

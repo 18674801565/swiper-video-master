@@ -16,6 +16,13 @@
 			}
 		},
 		{
+			"path": "pages/my/userinfo/userinfo",
+			"style": {
+				"navigationBarTitleText": "我的详情",
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/Release/Release",
 			"style": {
 				"navigationBarTitleText": "发布",

@@ -1,5 +1,5 @@
 
-  !function(){try{var a=Function("return this")();a&&!a.Math&&(Object.assign(a,{isFinite:isFinite,Array:Array,Date:Date,Error:Error,Function:Function,Math:Math,Object:Object,RegExp:RegExp,String:String,TypeError:TypeError,setTimeout:setTimeout,clearTimeout:clearTimeout,setInterval:setInterval,clearInterval:clearInterval}),"undefined"!=typeof Reflect&&(a.Reflect=Reflect))}catch(a){}}();
+  !function(){try{var r=Function("return this")();r&&!r.Math&&Object.assign(r,{Array:Array,Date:Date,Error:Error,Function:Function,Math:Math,Object:Object,RegExp:RegExp,String:String,TypeError:TypeError,setTimeout:setTimeout,clearTimeout:clearTimeout,setInterval:setInterval,clearInterval:clearInterval})}catch(r){}}();
   /******/ (function(modules) { // webpackBootstrap
 /******/ 	// install a JSONP callback for chunk loading
 /******/ 	function webpackJsonpCallback(data) {
@@ -104,11 +104,11 @@
 /******/
 /******/
 /******/ 		// mini-css-extract-plugin CSS loading
-/******/ 		var cssChunks = {"components/chunlei-video/chunlei-video":1,"components/tabBar/tabBar":1};
+/******/ 		var cssChunks = {"components/tabBar/tabBar":1,"components/chunlei-video/chunlei-video":1,"components/back/top-back":1};
 /******/ 		if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 		else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 			promises.push(installedCssChunks[chunkId] = new Promise(function(resolve, reject) {
-/******/ 				var href = "" + ({"components/chunlei-video/chunlei-video":"components/chunlei-video/chunlei-video","components/tabBar/tabBar":"components/tabBar/tabBar"}[chunkId]||chunkId) + ".wxss";
+/******/ 				var href = "" + ({"components/tabBar/tabBar":"components/tabBar/tabBar","components/chunlei-video/chunlei-video":"components/chunlei-video/chunlei-video","components/back/top-back":"components/back/top-back"}[chunkId]||chunkId) + ".wxss";
 /******/ 				var fullhref = __webpack_require__.p + href;
 /******/ 				var existingLinkTags = document.getElementsByTagName("link");
 /******/ 				for(var i = 0; i < existingLinkTags.length; i++) {
