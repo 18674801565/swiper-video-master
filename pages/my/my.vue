@@ -81,17 +81,7 @@
 		</view>
      <tabar :index="2" />
 	<!--	授权登录
-		<view class="shade" v-if="shade">
-			<view class="shade-relative">
-				<view class="shade-main">
-					<view class="title">
-						微信授权登录
-					</view>
-					<button @click="login" open-type="getUserInfo">授权</button>
-				</view>
-			</view>
 
-		</view>
 		</view>-->
 
 		
@@ -296,32 +286,5 @@
 		}
 	}
 	// 
-	.shade{
-		position: fixed;
-		left: 0;
-		top:0;
-		width: 100%;
-		height: 100%;
-		background-color: rgba(0,0,0,0.4);
-		z-index: 99;
-		.shade-relative{
-			position: relative;
-			width: 100%;
-			height: 100%;
-		}
-		.shade-main{
-			position: absolute;
-			left:50%;
-			top:50%;
-			transform: translate(-50%,-50%);
-			height: 300rpx;
-			width: 400rpx;
-			border-radius:8rpx ;
-			background-color: #FFFFFF;
-			display: flex;
-			flex-direction: column;
-			justify-content: space-around;
-			align-items: center;
-		}
-	}
+
 </style>

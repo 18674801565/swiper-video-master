@@ -8,9 +8,20 @@
 				<cover-image class="issue" src="../../static/jia.png"></cover-image>
 			</cover-view>
 			<cover-view class="tabar" @click.stop="user?redirectTo('../../pages/my/my'):login()">
-				<cover-view :class="[selection == 2 ? 'cover-span spancolor' : 'cover-span']">鎴戠殑</cover-view>
+				<cover-view  :class="[selection == 2 ? 'cover-span spancolor' : 'cover-span']">鎴戠殑</cover-view>
 			</cover-view>
 		</cover-view>
+		<view class="shade" v-if="shade">
+			<view class="shade-relative">
+				<view class="shade-main">
+					<view class="title">
+						鎺堟潈
+					</view>
+					<button @click="getUserInfo" open-type="getUserInfo">鎺堟潈</button>
+				</view>
+			</view>
+		
+		</view>
 	</cover-view>
 </template>
 <script>
@@ -20,8 +31,11 @@
 		name: "taber",
 		data() {
 			return {
+				shade:false,
 				selection: 1,
-				user:uni.getStorageSync('user')
+				user:uni.getStorageSync('user'),
+				avatarUrl:null,
+				nickName:null
 			};
 		},
 		props: ["index"],
@@ -34,31 +48,22 @@
 								url: e
 							});
 						},
-						//登录
+						//锟斤拷录
 						login() {
 							let _this = this;
 							_this.shade=false;
 							// uni.showLoading({
-							//     title: '登录中...'
+							//     title: '锟斤拷录锟斤拷...'
 							// });
-							// 1.wx获取登录用户code
+							// 1.wx锟斤拷取锟斤拷录锟矫伙拷code
 							uni.login({
 								provider: 'weixin',
 								success: function(loginRes) {
 									let code = loginRes.code;
 									if (!_this.isCanUse) {
-										//非第一次授权获取用户信息
-										uni.getUserInfo({
-											provider: 'weixin',
-											success: function(infoRes) {
-												//获取用户信息后向调用信息更新方法
-												let nickName = infoRes.userInfo.nickName; //昵称
-												let avatarUrl = infoRes.userInfo.avatarUrl; //头像
-												_this.updateUserInfo(); //调用更新信息方法
-											}
-										});
+									
 									}
-									//2.将用户登录code传递到后台置换用户SessionKey、OpenId等信息
+									//2.锟斤拷锟矫伙拷锟斤拷录code锟斤拷锟捷碉拷锟斤拷台锟矫伙拷锟矫伙拷SessionKey锟斤拷OpenId锟斤拷锟斤拷息
 									request({
 										url: '/wechat/login',
 										data: {
@@ -69,36 +74,26 @@
 											'content-type': 'application/json'
 										},
 										success: (res) => {
-											//openId、或SessionKdy存储//隐藏loading
+											//openId锟斤拷锟斤拷SessionKdy锟芥储//锟斤拷锟斤拷loading
 											console.log(res)
 											if (res.data.status === 200) {
 												uni.setStorageSync('token', res.data.token);
 											}
 											console.log('token', uni.getStorageSync('token'))
-											//授权成功后获取用户数据存入数据库
-											uni.getUserInfo({
-												provider: 'weixin',
-												success: function(infoRes) {
-													//获取用户信息后向调用信息更新方法
-													console.log(infoRes.userInfo)
-													_this.nickName = infoRes.userInfo.nickName; //昵称
-													_this.avatarUrl = infoRes.userInfo.avatarUrl; //头像
-													_this.gender = infoRes.userInfo.gender
-													_this.updateUserInfo(); //调用更新用户信息方法
-												}
-											});
+											//锟斤拷权锟缴癸拷锟斤拷锟斤拷取锟矫伙拷锟斤拷锟捷达拷锟斤拷锟斤拷锟捷匡拷
+											_this.shade = true
 											// uni.hideLoading();
 										}
 									});
 								},
 							});
 						},
-						//向后台更新信息
+						//锟斤拷锟斤拷台锟斤拷锟斤拷锟斤拷息
 						updateUserInfo() {
 							let _this = this;
 							console.log('_this.nickName', _this.nickName)
 							request({
-								url: '/wechat/update/userinfo', //服务器端地址
+								url: '/wechat/update/userinfo', //锟斤拷锟斤拷锟斤拷锟剿碉拷址
 								data: {
 									phoneNumber: null,
 									nickName: _this.nickName,
@@ -110,12 +105,26 @@
 									'content-type': 'application/json'
 								},
 								success: (res) => {
+									console.log(res)
 									if (res.data.status === 200) {
 										uni.setStorageSync('user',res.data.data)
 										uni.navigateTo({
 											url:'../../pages/my/my'
 										})
 									}
+								}
+							});
+						},
+						async getUserInfo(){
+							let _this = this
+							//锟角碉拷一锟斤拷锟斤拷权锟斤拷取锟矫伙拷锟斤拷息
+							await uni.getUserInfo({
+								provider: 'weixin',
+								success: function(infoRes) {
+									//锟斤拷取锟矫伙拷锟斤拷息锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷息锟斤拷锟铰凤拷锟斤拷
+									_this.nickName = infoRes.userInfo.nickName; //锟角筹拷
+									_this.avatarUrl = infoRes.userInfo.avatarUrl; //头锟斤拷
+									_this.updateUserInfo(); //锟斤拷锟矫革拷锟斤拷锟斤拷息锟斤拷锟斤拷
 								}
 							});
 						}
@@ -164,6 +173,34 @@
 			display: inline;
 			font-size: 16px;
 			color: #FFFFFF;
+		}
+	}
+	.shade{
+		position: fixed;
+		left: 0;
+		top:0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0,0,0,0.4);
+		z-index: 99;
+		.shade-relative{
+			position: relative;
+			width: 100%;
+			height: 100%;
+		}
+		.shade-main{
+			position: absolute;
+			left:50%;
+			top:50%;
+			transform: translate(-50%,-50%);
+			height: 300rpx;
+			width: 400rpx;
+			border-radius:8rpx ;
+			background-color: #FFFFFF;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+			align-items: center;
 		}
 	}
 </style>

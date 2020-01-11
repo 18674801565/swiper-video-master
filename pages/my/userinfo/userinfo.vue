@@ -3,8 +3,8 @@
 		<top pagetext="我的详情"></top>
 		<view class="head">
 			<view class="avatar-container">
-				<image class="avatar" :src="user.avatarUrl?user.avatarUrl:'../../../static/logo.png'" @click="shade=true"></image>
-				<cover-image class="avatar-over" src="../../../static/camera.png" @click="shade=true"></cover-image>
+				<image class="avatar" :src="user.avatarUrl?user.avatarUrl:'../../../static/logo.png'" @click="schooseImage()"></image>
+				<cover-image class="avatar-over" src="../../../static/camera.png" @click="schooseImage()"></cover-image>
 			</view>
 		</view>
 		<view class="info-list">
@@ -52,7 +52,16 @@
 			}
 		},
 		methods: {
-			
+			chooseImage() {
+							uni.chooseImage({
+								count: 1, //默认1
+								sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+								sourceType: ['album','camera'], //从相册选择、摄像头
+								success: function(res) {
+									console.log(JSON.stringify(res.tempFilePaths));
+								}
+							});
+						}
 		},	
 		components: {
 			top

@@ -8400,7 +8400,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "首页", "navigationStyle": "custom", "transparentTitle": "none", "usingComponents": { "chunlei-video": "/components/chunlei-video/chunlei-video", "tabar": "/components/tabBar/tabBar" } }, "pages/my/my": { "navigationBarTitleText": "我的", "navigationStyle": "custom", "usingComponents": { "tabar": "/components/tabBar/tabBar" } }, "pages/Release/Release": { "navigationBarTitleText": "发布", "navigationStyle": "custom", "usingComponents": {} }, "pages/login/login": { "navigationBarTitleText": "登录", "navigationStyle": "custom", "usingComponents": {} }, "pages/my/userinfo/userinfo": { "navigationBarTitleText": "我的详情", "navigationStyle": "custom" } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "首页", "navigationStyle": "custom", "transparentTitle": "none" }, "pages/my/my": { "navigationBarTitleText": "我的", "navigationStyle": "custom" }, "pages/my/userinfo/userinfo": { "navigationBarTitleText": "我的详情", "navigationStyle": "custom" }, "pages/Release/Release": { "navigationBarTitleText": "发布", "navigationStyle": "custom" }, "pages/login/login": { "navigationBarTitleText": "登录", "navigationStyle": "custom" } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 /* 8 */
@@ -9366,9 +9366,9 @@ request;exports.default = _default;
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var basehttpurl = 'http://localhost:3000'; //公共接口请求地址
-var basehttpsurl = 'https://localhost:5000'; //公共接口请求地址
-var _default =
-{
+//const basehttpsurl = 'https://localhost:5000';  //公共接口请求地址
+var basehttpsurl = 'https://192.168.56.1:5000'; //公共接口请求地址	
+var _default = {
   basehttpurl: basehttpurl,
   basehttpsurl: basehttpsurl };exports.default = _default;
 

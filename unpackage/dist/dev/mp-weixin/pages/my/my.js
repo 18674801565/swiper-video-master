@@ -218,16 +218,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
-
-
-
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../utils/request.js */ 34));
 
 var _login = _interopRequireDefault(__webpack_require__(/*! ../../utils/login.js */ 36));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
@@ -320,17 +310,7 @@ var _login = _interopRequireDefault(__webpack_require__(/*! ../../utils/login.js
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var tabar = function tabar() {return Promise.all(/*! import() | components/tabBar/tabBar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/tabBar/tabBar")]).then(__webpack_require__.bind(null, /*! ../../components/tabBar/tabBar.vue */ 58));};var _default = { components: { tabar: tabar }, data: function data() {return { shade: false, tab: 1, SessionKey: '', OpenId: '', //nickName: null,
+var tabar = function tabar() {return Promise.all(/*! import() | components/tabBar/tabBar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/tabBar/tabBar")]).then(__webpack_require__.bind(null, /*! ../../components/tabBar/tabBar.vue */ 66));};var _default = { components: { tabar: tabar }, data: function data() {return { shade: false, tab: 1, SessionKey: '', OpenId: '', //nickName: null,
       avatarUrl: null, gender: null, isCanUse: uni.getStorageSync('isCanUse') || true, //默认为true，
       user: uni.getStorageSync('user') };}, onLoad: function onLoad() {}, methods: { // 切换选项（作品，收藏，喜欢）
     tabNav: function tabNav(e) {this.tab = e;}, redirectTo: function redirectTo(e) {uni.navigateTo({ url: e });} } };exports.default = _default;
