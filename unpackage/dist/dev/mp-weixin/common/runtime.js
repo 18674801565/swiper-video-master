@@ -104,11 +104,11 @@
 /******/
 /******/
 /******/ 		// mini-css-extract-plugin CSS loading
-/******/ 		var cssChunks = {"components/tabBar/tabBar":1,"components/chunlei-video/chunlei-video":1,"components/back/top-back":1};
+/******/ 		var cssChunks = {"components/tabBar/tabBar":1,"components/chunlei-video/chunlei-video":1,"components/hch-poster/hch-poster":1,"components/popup/Popup":1,"components/back/top-back":1};
 /******/ 		if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 		else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 			promises.push(installedCssChunks[chunkId] = new Promise(function(resolve, reject) {
-/******/ 				var href = "" + ({"components/tabBar/tabBar":"components/tabBar/tabBar","components/chunlei-video/chunlei-video":"components/chunlei-video/chunlei-video","components/back/top-back":"components/back/top-back"}[chunkId]||chunkId) + ".wxss";
+/******/ 				var href = "" + ({"components/tabBar/tabBar":"components/tabBar/tabBar","components/chunlei-video/chunlei-video":"components/chunlei-video/chunlei-video","components/hch-poster/hch-poster":"components/hch-poster/hch-poster","components/popup/Popup":"components/popup/Popup","components/back/top-back":"components/back/top-back"}[chunkId]||chunkId) + ".wxss";
 /******/ 				var fullhref = __webpack_require__.p + href;
 /******/ 				var existingLinkTags = document.getElementsByTagName("link");
 /******/ 				for(var i = 0; i < existingLinkTags.length; i++) {

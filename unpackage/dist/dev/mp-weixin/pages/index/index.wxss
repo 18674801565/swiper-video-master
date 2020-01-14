@@ -49,140 +49,346 @@ swiper-item {
 
 
 .swiper.data-v-2dc28058 {
-	-webkit-box-flex: 1;
-	-webkit-flex: 1;
-	    -ms-flex: 1;
-	        flex: 1;
-	background-color: #000;
+		-webkit-box-flex: 1;
+		-webkit-flex: 1;
+		    -ms-flex: 1;
+		        flex: 1;
+		background-color: #000;
+}
+.popup.data-v-2dc28058{
+		display: fixed;
+		bottom:0px;
+		right:0px;
+		left:0px;
 }
 .swiper-item.data-v-2dc28058 {
-	-webkit-box-flex: 1;
-	-webkit-flex: 1;
-	    -ms-flex: 1;
-	        flex: 1;
+		-webkit-box-flex: 1;
+		-webkit-flex: 1;
+		    -ms-flex: 1;
+		        flex: 1;
 }
 .video.data-v-2dc28058 {
-	-webkit-box-flex: 1;
-	-webkit-flex: 1;
-	    -ms-flex: 1;
-	        flex: 1;
+		-webkit-box-flex: 1;
+		-webkit-flex: 1;
+		    -ms-flex: 1;
+		        flex: 1;
 }
 .video-box.data-v-2dc28058 {
-	-webkit-box-flex: 1;
-	-webkit-flex: 1;
-	    -ms-flex: 1;
-	        flex: 1;
+		-webkit-box-flex: 1;
+		-webkit-flex: 1;
+		    -ms-flex: 1;
+		        flex: 1;
 }
 .cover-view-center.data-v-2dc28058 {
-	position: absolute;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	    -ms-flex-pack: center;
-	        justify-content: center;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	    -ms-flex-align: center;
-	        align-items: center;
-	opacity: 0.1;
-	z-index: 999;
+		position: absolute;
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		    -ms-flex-pack: center;
+		        justify-content: center;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		    -ms-flex-align: center;
+		        align-items: center;
+		opacity: 0.1;
+		z-index: 999;
 }
 .cover-view-left.data-v-2dc28058 {
-	position: absolute;
-	margin-left: 10rpx;
-	width: 500rpx;
-	bottom: 120rpx;
-	z-index: 9999;
-	font-size: 16px;
-	color: #FFFFFF;
-	
-	white-space: pre-wrap;
-	-o-text-overflow: ellipsis;
-	   text-overflow: ellipsis;
-	overflow: hidden;
-	
+		position: absolute;
+		margin-left: 10rpx;
+		width: 500rpx;
+		bottom: 120rpx;
+		z-index: 9999;
+		font-size: 16px;
+		color: #FFFFFF;
+		
+		white-space: pre-wrap;
+		-o-text-overflow: ellipsis;
+		   text-overflow: ellipsis;
+		overflow: hidden;
+		
 }
 .left-view.data-v-2dc28058 {
-	margin-bottom: 20rpx;
+		margin-bottom: 20rpx;
 }
 .left-text.data-v-2dc28058 {
-	font-size: 16px;
-	color: #FFFFFF;
+		font-size: 16px;
+		color: #FFFFFF;
 }
 .avater.data-v-2dc28058 {
-	border-radius: 50rpx;
-	border-color: #fff;
-	border-style: solid;
-	border-width: 2px;
+		border-radius: 50rpx;
+		border-color: #fff;
+		border-style: solid;
+		border-width: 2px;
 }
 .cover-view-right.data-v-2dc28058 {
-	position: absolute;
-	bottom: 160rpx;
-	right: 20rpx;
-	
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: column;
-	    -ms-flex-direction: column;
-	        flex-direction: column;
-	
-	z-index: 9999;
+		position: absolute;
+		bottom: 160rpx;
+		right: 20rpx;
+		
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: column;
+		    -ms-flex-direction: column;
+		        flex-direction: column;
+		
+		z-index: 9999;
 }
 .right-text-avater.data-v-2dc28058 {
-	position: absolute;
-	font-size: 14px;
-	top: 80rpx;
-	left: 30rpx;
-	height: 40rpx;
-	width: 40rpx;
-	background-color: #DD524D;
-	color: #FFFFFF;
-	border-radius: 50%;
-	text-align: center;
-	line-height: 40rpx;
-	z-index: 999;
+		position: absolute;
+		font-size: 14px;
+		top: 80rpx;
+		left: 30rpx;
+		height: 40rpx;
+		width: 40rpx;
+		background-color: #DD524D;
+		color: #FFFFFF;
+		border-radius: 50%;
+		text-align: center;
+		line-height: 40rpx;
+		z-index: 999;
 }
 .avater-icon.data-v-2dc28058 {
-	height: 40rpx;
-	width: 40rpx;
+		height: 40rpx;
+		width: 40rpx;
 
-	color: #fff;
-	background-color: #DD524D;
-	border-radius: 50%;
-	position: absolute;
-	left: 30rpx;
-	top: -20rpx;
+		color: #fff;
+		background-color: #DD524D;
+		border-radius: 50%;
+		position: absolute;
+		left: 30rpx;
+		top: -20rpx;
 }
 .right-text.data-v-2dc28058 {
-	text-align: center;
-	font-size: 14px;
-	color: #FFFFFF;
-	margin-bottom: 50rpx;
-	height: 20px;
+		text-align: center;
+		font-size: 14px;
+		color: #FFFFFF;
+		margin-bottom: 50rpx;
+		height: 20px;
 }
 .img.data-v-2dc28058 {
-	height: 100rpx;
-	width: 100rpx;
-	opacity: 0.9;
+		height: 100rpx;
+		width: 100rpx;
+		opacity: 0.9;
 }
 .page.data-v-2dc28058 {
-	
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: column;
-	    -ms-flex-direction: column;
-	        flex-direction: column;
-	
-	-webkit-box-flex: 1;
-	-webkit-flex: 1;
-	    -ms-flex: 1;
-	        flex: 1;
+		
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: column;
+		    -ms-flex-direction: column;
+		        flex-direction: column;
+		
+		-webkit-box-flex: 1;
+		-webkit-flex: 1;
+		    -ms-flex: 1;
+		        flex: 1;
+}
+
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+/*每个页面公共css 放app.vue页面的 */
+@font-face {
+  font-family: 'font_family';
+  /* project id 1065286 */
+  src: url("//at.alicdn.com/t/font_1065286_3bsye5aijur.eot");
+  src: url("//at.alicdn.com/t/font_1065286_3bsye5aijur.eot?#iefix") format("embedded-opentype"), url("//at.alicdn.com/t/font_1065286_3bsye5aijur.woff2") format("woff2"), url("//at.alicdn.com/t/font_1065286_3bsye5aijur.woff") format("woff"), url("//at.alicdn.com/t/font_1065286_3bsye5aijur.ttf") format("truetype"), url("//at.alicdn.com/t/font_1065286_3bsye5aijur.svg#font_family") format("svg");
+}
+.font_family {
+  font-family: "font_family" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* 按钮去掉边框 */
+button::after {
+  border: none;
+}
+button {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+  line-height: 1;
+  color: #1c1c1c;
+  font-size: 28rpx;
+  background: none;
+}
+.button-hover {
+  color: #1c1c1c;
+  background: none;
+}
+/*每个页面公共css */
+.content {
+  text-align: center;
+  height: 100%;
+}
+.share-btn {
+  padding: 30rpx 60rpx;
+  background-color: #ff5f33;
+  color: #fff;
+}
+.share-pro {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  z-index: 9999;
+  line-height: 1;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  /* 显示或关闭内容时动画 */
+}
+.share-pro .share-pro-mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+.share-pro .share-pro-dialog {
+    width: 750rpx;
+    height: 310rpx;
+    overflow: hidden;
+    background-color: #fff;
+    border-radius: 24rpx 24rpx 0px 0px;
+    position: relative;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    position: fixed;
+    z-index: 9999;
+    bottom: 0;
+}
+.share-pro .share-pro-dialog .close-btn {
+      padding: 20rpx 15rpx;
+      position: absolute;
+      top: 0rpx;
+      right: 29rpx;
+}
+.share-pro .share-pro-dialog .share-pro-title {
+      font-size: 28rpx;
+      color: #1c1c1c;
+      padding: 28rpx 41rpx;
+      background-color: #f7f7f7;
+}
+.share-pro .share-pro-dialog .share-pro-body {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: row;
+          -ms-flex-direction: row;
+              flex-direction: row;
+      -webkit-justify-content: space-around;
+          -ms-flex-pack: distribute;
+              justify-content: space-around;
+      font-size: 28rpx;
+      color: #1c1c1c;
+      z-index: 9999;
+}
+.share-pro .share-pro-dialog .share-pro-body .share-item {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-justify-content: space-around;
+            -ms-flex-pack: distribute;
+                justify-content: space-around;
+}
+.share-pro .share-pro-dialog .share-pro-body .share-item .share-icon {
+          text-align: center;
+          font-size: 70rpx;
+          margin-top: 39rpx;
+          margin-bottom: 16rpx;
+          color: #42ae3c;
+}
+.share-pro .share-pro-dialog .share-pro-body .share-item:nth-child(2) .share-icon {
+          color: #ff5f33;
+}
+.share-pro .open {
+    -webkit-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+            transform: translateY(0);
+}
+.share-pro .close {
+    -webkit-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    -webkit-transform: translateY(310rpx);
+        -ms-transform: translateY(310rpx);
+            transform: translateY(310rpx);
+}
+.canvas {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 999;
 }
 
