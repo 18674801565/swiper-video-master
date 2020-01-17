@@ -1,0 +1,1 @@
+<view><view class="top"><view class="top-left"><image class="top-left-img" src="../../static/arrow_left.png" data-event-opts="{{[['tap',[['back',['$event']]]]]}}" bindtap="__e"></image></view><view class="top-right">{{pagetext}}</view></view></view>

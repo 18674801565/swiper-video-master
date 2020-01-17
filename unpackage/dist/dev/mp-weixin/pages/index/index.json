@@ -4,6 +4,8 @@
   "transparentTitle": "none",
   "usingComponents": {
     "chunlei-video": "/components/chunlei-video/chunlei-video",
-    "tabar": "/components/tabBar/tabBar"
+    "tabar": "/components/tabBar/tabBar",
+    "popup": "/components/popup/Popup",
+    "hch-poster": "/components/hch-poster/hch-poster"
   }
 }

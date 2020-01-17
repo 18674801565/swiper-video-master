@@ -8508,7 +8508,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "首页", "navigationStyle": "custom", "transparentTitle": "none" }, "pages/my/my": { "navigationBarTitleText": "我的", "navigationStyle": "custom" }, "pages/Release/Release": { "navigationBarTitleText": "发布", "navigationStyle": "custom" }, "pages/login/login": { "navigationBarTitleText": "登录", "navigationStyle": "custom" } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "首页", "navigationStyle": "custom", "transparentTitle": "none" }, "pages/my/my": { "navigationBarTitleText": "我的", "navigationStyle": "custom" }, "pages/my/userinfo/userinfo": { "navigationBarTitleText": "我的详情", "navigationStyle": "custom" }, "pages/Release/Release": { "navigationBarTitleText": "发布", "navigationStyle": "custom" }, "pages/login/login": { "navigationBarTitleText": "登录", "navigationStyle": "custom" }, "pages/my/userinfo/update": { "navigationBarTitleText": "我的详情", "navigationStyle": "custom" } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 /* 8 */
@@ -9442,17 +9442,7 @@ if (hadRuntime) {
 
 
 /***/ }),
-/* 24 */,
-/* 25 */,
-/* 26 */,
-/* 27 */,
-/* 28 */,
-/* 29 */,
-/* 30 */,
-/* 31 */,
-/* 32 */,
-/* 33 */,
-/* 34 */
+/* 24 */
 /*!****************************************************************************!*\
   !*** C:/Users/LGD/Desktop/dsp/swiper-video-master-master/utils/request.js ***!
   \****************************************************************************/
@@ -9460,7 +9450,7 @@ if (hadRuntime) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _config = _interopRequireDefault(__webpack_require__(/*! config.js */ 35));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _config = _interopRequireDefault(__webpack_require__(/*! config.js */ 25));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 var request = function request(options) {
   options.url = _config.default.basehttpsurl + options.url;
   try {
@@ -9479,7 +9469,7 @@ request;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 35 */
+/* 25 */
 /*!*********************************************************************!*\
   !*** C:/Users/LGD/Desktop/dsp/swiper-video-master-master/config.js ***!
   \*********************************************************************/
@@ -9488,14 +9478,26 @@ request;exports.default = _default;
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var basehttpurl = 'http://localhost:3000'; //公共接口请求地址
-var basehttpsurl = 'https://localhost:5000'; //公共接口请求地址
-var _default =
-{
+//const basehttpsurl = 'https://localhost:5000';  //公共接口请求地址
+var basehttpsurl = 'https://localhost:5000'; //公共接口请求地址	
+var _default = {
   basehttpurl: basehttpurl,
   basehttpsurl: basehttpsurl };exports.default = _default;
 
 /***/ }),
-/* 36 */
+/* 26 */,
+/* 27 */,
+/* 28 */,
+/* 29 */,
+/* 30 */,
+/* 31 */,
+/* 32 */,
+/* 33 */,
+/* 34 */,
+/* 35 */,
+/* 36 */,
+/* 37 */,
+/* 38 */
 /*!**************************************************************************!*\
   !*** C:/Users/LGD/Desktop/dsp/swiper-video-master-master/utils/login.js ***!
   \**************************************************************************/
@@ -9503,7 +9505,7 @@ var _default =
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _config = _interopRequireDefault(__webpack_require__(/*! config.js */ 35));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _config = _interopRequireDefault(__webpack_require__(/*! config.js */ 25));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 var getToken = function getToken() {
   return new Promise(function (resolve, reject) {
     // 登录

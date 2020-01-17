@@ -1,0 +1,126 @@
+.popup {
+  position: fixed;
+  height: calc(72vh);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background-color: #fff;
+  border-radius: 40rpx 40rpx 0rpx 0rpx;
+}
+.popup .popup-top {
+  height: 60rpx;
+  width: 100%;
+  position: relative;
+  padding-top: 10rpx;
+  margin-bottom: 20rpx;
+}
+.popup .popup-top .top-text {
+  line-height: 60rpx;
+  width: 100%;
+  font-size: 24rpx;
+  text-align: center;
+}
+.popup .popup-top .top-right-icon {
+  position: absolute;
+  height: 100%;
+  right: 20rpx;
+}
+.popup .popup-top .top-right-icon .close-icon {
+  height: 50rpx;
+  width: 50rpx;
+}
+.popup .popup-body .null-comment {
+  color: #ccc;
+  font-size: 30rpx;
+  margin-top: 40px;
+  text-align: center;
+}
+.popup .popup-body .group-list {
+  height: calc(72vh - 60rpx);
+  overflow-y: scroll;
+}
+.popup .popup-body .group-list .comment-group {
+  min-height: 80rpx;
+  width: 100%;
+}
+.popup .popup-body .group-list .comment-group .reply,
+.popup .popup-body .group-list .comment-group .replyed {
+  width: 100%;
+  min-height: 80rpx;
+  font-size: 28rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+.popup .popup-body .group-list .comment-group .reply .comment-avator,
+.popup .popup-body .group-list .comment-group .replyed .comment-avator {
+  height: 60rpx;
+  width: 60rpx;
+  border-radius: 50%;
+  display: block;
+  margin: 10rpx 20rpx 10rpx 40rpx;
+}
+.popup .popup-body .group-list .comment-group .reply .comment-body,
+.popup .popup-body .group-list .comment-group .replyed .comment-body {
+  width: auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  width: 70%;
+}
+.popup .popup-body .group-list .comment-group .reply .comment-body .comment-name,
+.popup .popup-body .group-list .comment-group .replyed .comment-body .comment-name {
+  height: 40rpx;
+  color: #999999;
+  overflow: hidden;
+  font-size: 25rpx;
+}
+.popup .popup-body .group-list .comment-group .reply .comment-body .comment-info,
+.popup .popup-body .group-list .comment-group .replyed .comment-body .comment-info {
+  min-height: 40rpx;
+  color: #000000;
+  max-height: 400rpx;
+  max-width: 100%;
+  word-break: break-all;
+}
+.popup .popup-body .group-list .comment-group .reply .comment-body .comment-info ._span,
+.popup .popup-body .group-list .comment-group .replyed .comment-body .comment-info ._span {
+  display: inline-block;
+  font-size: 25rpx;
+}
+.popup .popup-body .group-list .comment-group .reply .comment-body .comment-info .comment-time,
+.popup .popup-body .group-list .comment-group .replyed .comment-body .comment-info .comment-time {
+  color: #999999;
+  font-size: 22rpx;
+  margin-left: 10rpx;
+}
+.popup .popup-body .group-list .comment-group .reply .comment-like-num,
+.popup .popup-body .group-list .comment-group .replyed .comment-like-num {
+  width: 80rpx;
+  text-align: center;
+}
+.popup .popup-body .group-list .comment-group .reply .comment-like-num .comment-like,
+.popup .popup-body .group-list .comment-group .replyed .comment-like-num .comment-like {
+  height: 40rpx;
+  margin: 0rpx 20rpx;
+  width: 40rpx;
+  overflow: inherit;
+}
+.popup .popup-body .group-list .comment-group .reply .comment-like-num .like-num,
+.popup .popup-body .group-list .comment-group .replyed .comment-like-num .like-num {
+  color: #8a8a8a;
+  font-size: 24rpx;
+}
+.popup .popup-body .group-list .comment-group .replyed {
+  width: 95%;
+  margin-left: 5%;
+}
+

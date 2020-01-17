@@ -2,8 +2,10 @@
   "pages": [
     "pages/index/index",
     "pages/my/my",
+    "pages/my/userinfo/userinfo",
     "pages/Release/Release",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/my/userinfo/update"
   ],
   "subPackages": [],
   "window": {
@@ -13,5 +15,5 @@
     "backgroundColor": "#F8F8F8"
   },
   "usingComponents": {},
-  "sitemapLocation": "sitemap82.json"
+  "sitemapLocation": "sitemap12.json"
 }

@@ -1,0 +1,65 @@
+.info-body {
+  background-color: #2b2828e8;
+  height: calc(100vh);
+}
+.info-body .head {
+  height: 240rpx;
+  line-height: 240rpx;
+  width: 100%;
+  text-align: center;
+  padding: 140rpx 0rpx 20rpx;
+}
+.info-body .head .avatar-container {
+  height: 200rpx;
+  width: 200rpx;
+  margin: 0 auto;
+  position: relative;
+}
+.info-body .head .avatar-container .avatar {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  opacity: 0.6;
+  border-radius: 50%;
+}
+.info-body .head .avatar-container .avatar-over {
+  position: absolute;
+  height: 80rpx;
+  width: 100rpx;
+  top: 60rpx;
+  right: 50rpx;
+}
+.info-body .info-list {
+  font-size: 28rpx;
+  color: #fff;
+}
+.info-body .info-list .info-item {
+  height: 90rpx;
+  line-height: 90rpx;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+.info-body .info-list .info-item .info-item-left {
+  width: 25%;
+  padding-left: 40rpx;
+}
+.info-body .info-list .info-item .info-item-right {
+  text-align: right;
+  width: 75%;
+}
+.info-body .info-list .info-item .info-item-right .to-right-icon {
+  height: 40rpx;
+  width: 40rpx;
+}
+.info-body .info-list .info-item .to-right-icon {
+  height: 40rpx;
+  width: 50rpx;
+  padding: 25rpx 0rpx;
+  padding-right: 30rpx;
+  padding-left: 6rpx;
+}
+

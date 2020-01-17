@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "我的详情",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "top": "/components/back/top-back"
+  }
+}

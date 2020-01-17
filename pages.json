@@ -16,6 +16,13 @@
 			}
 		},
 		{
+			"path": "pages/my/userinfo/userinfo",
+			"style": {
+				"navigationBarTitleText": "我的详情",
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/Release/Release",
 			"style": {
 				"navigationBarTitleText": "发布",
@@ -26,6 +33,13 @@
 			"path": "pages/login/login",
 			"style": {
 				"navigationBarTitleText": "登录",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/my/userinfo/update",
+			"style": {
+				"navigationBarTitleText": "我的详情",
 				"navigationStyle": "custom"
 			}
 		}

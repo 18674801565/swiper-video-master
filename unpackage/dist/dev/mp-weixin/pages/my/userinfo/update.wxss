@@ -1,0 +1,51 @@
+
+.update {
+	background-color: #2b2828e8;
+	height: calc(100vh);
+}
+.wap {
+	margin-top: 15rpx;
+	
+	width: 100%;
+	padding: 40rpx;
+	box-sizing: border-box;
+}
+.tiele {
+	color: #8B8C91;
+	font-size: 25rpx;
+}
+.input {
+	font-size: 25rpx;
+	color: #FFFFFF;
+	padding: 20rpx 0;
+	border-bottom: 0.5px solid #262834;
+}
+.sizeleng {
+	color: #8B8C91;
+	padding: 25rpx 0 0 0;
+	font-size: 25rpx;
+}
+.textarea {
+	margin-top: 20rpx;
+	width: 100%;
+	background-color: rgba(255, 255, 255, 0.05);
+	color: #FFFFFF;
+	padding: 15rpx;
+	font-size: 25rpx;
+	box-sizing: border-box;
+	border-radius: 4rpx;
+}
+.sex{
+	color: #FFFFFF;
+	font-size: 25rpx;
+	padding: 10rpx 20rpx;
+	border-radius:4rpx ;
+	box-sizing: border-box;
+	-webkit-transition: 0.3s all;
+	transition: 0.3s all;
+}
+.sexcolor{
+	background-color: #FFFFFF;
+	color: #000000;
+}
+
