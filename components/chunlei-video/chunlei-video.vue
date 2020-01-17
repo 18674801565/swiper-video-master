@@ -5,10 +5,10 @@
 			:enable-progress-gesture="false" :objectFit="objectFit"
 			:id="`video_${src}`" ref="`video_${src}`" class="video" @timeupdate="timeupdate">
 		</video>
-		<cover-view class="icon-view" v-if="!play&&!playFirst"><text class="icon" style="color:#FFF">&#xe896;</text></cover-view>
+		<view class="icon-view" v-if="!play&&!playFirst"><text class="icon" style="color:#FFF">&#xe896;</text></view>
 		<cover-image class="img" :style="{ height: height }" :src="poster" v-if="poster!=''&&playFirst"></cover-image>
-		<cover-view class="top"></cover-view>
-		<cover-view class="bottom"></cover-view>
+		<view class="top"></view>
+		<view class="bottom"></view>
 		<!-- <cover-view class="progressBar" :style="{ width: barWidth }"></cover-view> -->
 	</view>
 </template>

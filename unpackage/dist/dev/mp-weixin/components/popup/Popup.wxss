@@ -24,7 +24,9 @@
 .popup .popup-top .top-right-icon {
   position: absolute;
   height: 100%;
+  z-index: 9999;
   right: 20rpx;
+  top: 10rpx;
 }
 .popup .popup-top .top-right-icon .close-icon {
   height: 50rpx;

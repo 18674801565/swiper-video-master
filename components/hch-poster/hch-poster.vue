@@ -256,40 +256,40 @@
 				},500)
 				// 海报商品title end
 				// 会员价 图标
-				wx.getImageInfo({
-			         src: zpPriceIcon,
-			         success(res) {
-					ctx.drawImage(res.path,65,380*scaleH,44, 15)
-					ctx.draw(true)
-			      } ,
-					fail(){
-						_this.canvasFlag=true;
-						uni.showToast({title:'海报生成失败',duration:2000,icon:'none'});
-					}
-				})
-				// 会员价 图标 end
-				//绘制价格
-				ctx.setFontSize(12)//设置字体大小，默认10
-				ctx.setFillStyle('#c00000')//文字颜色：默认黑色
-				ctx.font = 'normal 12px sans-serif';
-				ctx.fillText('￥', 110, 396*scaleH,60);
-				ctx.setFontSize(16)//设置字体大小，默认10
-				let zpPrice = this.posterObj.discountPrice;//会员价格
-				let orignPrice = this.posterObj.orignPrice;//市场价
+			// 	wx.getImageInfo({
+			//          src: zpPriceIcon,
+			//          success(res) {
+			// 		ctx.drawImage(res.path,65,380*scaleH,44, 15)
+			// 		ctx.draw(true)
+			//       } ,
+			// 		fail(){
+			// 			_this.canvasFlag=true;
+			// 			uni.showToast({title:'海报生成失败',duration:2000,icon:'none'});
+			// 		}
+			// 	})
+			// 	// 会员价 图标 end
+			// 	//绘制价格
+			// 	ctx.setFontSize(12)//设置字体大小，默认10
+			// 	ctx.setFillStyle('#c00000')//文字颜色：默认黑色
+			// 	ctx.font = 'normal 12px sans-serif';
+			// 	ctx.fillText('￥', 110, 396*scaleH,60);
+			// 	ctx.setFontSize(16)//设置字体大小，默认10
+			// 	let zpPrice = this.posterObj.discountPrice;//会员价格
+			// 	let orignPrice = this.posterObj.orignPrice;//市场价
 				
-				let zpPriceW = ctx.measureText(zpPrice).width;//文本的宽度
-				ctx.fillText(zpPrice, 120, 396*scaleH,zpPriceW);
+			// 	let zpPriceW = ctx.measureText(zpPrice).width;//文本的宽度
+			// 	ctx.fillText(zpPrice, 120, 396*scaleH,zpPriceW);
 			
-				ctx.beginPath();//开始一个新的路径
-				ctx.setFontSize(10)//设置字体大小，默认10
-				ctx.setFillStyle('#999')//文字颜色：默认黑色
-				let orignPriceW = ctx.measureText(orignPrice).width//去掉市场价
-				ctx.fillText(`￥${orignPrice}`, 120+zpPriceW+5, 395*scaleH,orignPriceW); //5价格间距
-				ctx.moveTo(120+zpPriceW+5,392*scaleH);//设置线条的起始路径坐标
-				ctx.lineTo(120+zpPriceW+5+orignPriceW,392*scaleH);//设置线条的终点路径坐标
-				ctx.setStrokeStyle('#999')
-				ctx.stroke();//对当前路径进行描边
-				ctx.closePath();//关闭当前路径
+			// 	ctx.beginPath();//开始一个新的路径
+			// 	ctx.setFontSize(10)//设置字体大小，默认10
+			// 	ctx.setFillStyle('#999')//文字颜色：默认黑色
+			// 	let orignPriceW = ctx.measureText(orignPrice).width//去掉市场价
+			// 	ctx.fillText(`￥${orignPrice}`, 120+zpPriceW+5, 395*scaleH,orignPriceW); //5价格间距
+			// 	ctx.moveTo(120+zpPriceW+5,392*scaleH);//设置线条的起始路径坐标
+			// 	ctx.lineTo(120+zpPriceW+5+orignPriceW,392*scaleH);//设置线条的终点路径坐标
+			// 	ctx.setStrokeStyle('#999')
+			// 	ctx.stroke();//对当前路径进行描边
+			// 	ctx.closePath();//关闭当前路径
 				//绘制价格 end
 				// this.codeImg().then((res)=>{
 					// 小程序码

@@ -75,8 +75,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
-      $event.stopPropagation()
-      _vm.user ? _vm.redirectTo("../../pages/my/my") : _vm.login()
+      _vm.user ? _vm.redirectTo("../../pages/my/my") : _vm.getMyUserInfo()
     }
   }
 }
@@ -129,22 +128,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
-
-
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../utils/request.js */ 24));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 
 {
   name: "taber",
   data: function data() {
     return {
-      shade: false,
       selection: 1,
       user: uni.getStorageSync('user'),
       avatarUrl: null,
@@ -155,6 +144,30 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../utils/reques
   created: function created() {
     this.selection = this.index;
   },
+  onLoad: function onLoad() {
+    // 查看是否授权
+    wx.getSetting({
+      success: function success(res) {
+        if (res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+          wx.getUserInfo({
+            success: function success(res) {
+              console.log(res.userInfo);
+            } });
+
+        }
+      },
+      fail: function fail() {
+        //未授权，授权
+        wx.getUserInfo({
+          success: function success(res) {
+            console.log(res.userInfo);
+          } });
+
+      } });
+
+
+  },
   methods: {
     redirectTo: function redirectTo(e) {
       uni.navigateTo({
@@ -164,7 +177,6 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../utils/reques
     //��¼
     login: function login() {
       var _this = this;
-      _this.shade = false;
       // uni.showLoading({
       //     title: '��¼��...'
       // });
@@ -186,17 +198,49 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../utils/reques
             header: {
               'content-type': 'application/json' },
 
-            success: function success(res) {
-              //openId����SessionKdy�洢//����loading
-              console.log(res);
-              if (res.data.status === 200) {
-                uni.setStorageSync('token', res.data.token);
-              }
-              console.log('token', uni.getStorageSync('token'));
-              //��Ȩ�ɹ�����ȡ�û����ݴ������ݿ�
-              _this.shade = true;
-              // uni.hideLoading();
-            } });
+            success: function () {var _success = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(res) {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+                        //openId����SessionKdy�洢//����loading
+                        console.log(res);if (!(
+                        res.data.status === 200)) {_context.next = 7;break;}
+                        uni.setStorageSync('token', res.data.token);_context.next = 5;return (
+                          uni.getUserInfo({
+                            provider: 'weixin',
+                            success: function success(infoRes) {
+                              console.log('第一次授权成功');
+                              _this.nickName = infoRes.userInfo.nickName; //�ǳ�
+                              _this.avatarUrl = infoRes.userInfo.avatarUrl; //ͷ��
+                              _this.updateUserInfo();
+
+                            },
+                            fail: function fail() {
+                              console.log('第一次授权失败了');
+                              uni.getUserInfo({
+                                provider: 'weixin',
+                                success: function success(infoRes) {
+                                  console.log('第二次授权成功');
+
+
+                                },
+                                fail: function fail() {
+                                  console.log('第二次授权失败了');
+                                  uni.clearStorageSync('token');
+                                  uni.clearStorageSync('user');
+                                } });
+
+                            } }));case 5:_context.next = 8;break;case 7:
+
+
+                        if (res.data.status === 10107) {
+                          uni.clearStorageSync('token');
+                          uni.clearStorageSync('user');
+                          uni.showToast({
+                            icon: 'none',
+                            title: "\u767B\u5F55\u5DF2\u5931\u6548" });
+
+                        }case 8:
+                        console.log('token', uni.getStorageSync('token'));
+                        //��Ȩ�ɹ�����ȡ�û����ݴ������ݿ�
+                      case 9:case "end":return _context.stop();}}}, _callee, this);}));function success(_x) {return _success.apply(this, arguments);}return success;}() });
 
         } });
 
@@ -228,17 +272,11 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../utils/reques
         } });
 
     },
-    getUserInfo: function () {var _getUserInfo = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var _this;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+    getMyUserInfo: function () {var _getMyUserInfo = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var _this;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
+                  this.login());case 2:
                 _this = this;
                 //�ǵ�һ����Ȩ��ȡ�û���Ϣ
-                _context.next = 3;return uni.getUserInfo({
-                  provider: 'weixin',
-                  success: function success(infoRes) {
-                    //��ȡ�û���Ϣ����������Ϣ���·���
-                    _this.nickName = infoRes.userInfo.nickName; //�ǳ�
-                    _this.avatarUrl = infoRes.userInfo.avatarUrl; //ͷ��
-                    _this.updateUserInfo(); //���ø�����Ϣ����
-                  } });case 3:case "end":return _context.stop();}}}, _callee, this);}));function getUserInfo() {return _getUserInfo.apply(this, arguments);}return getUserInfo;}() } };exports.default = _default;
+              case 3:case "end":return _context2.stop();}}}, _callee2, this);}));function getMyUserInfo() {return _getMyUserInfo.apply(this, arguments);}return getMyUserInfo;}() } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

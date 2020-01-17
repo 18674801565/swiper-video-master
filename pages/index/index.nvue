@@ -8,98 +8,100 @@
 					 :gDuration="item.duration" :initialTime="item.initialTime" @pause="pauseVideo" :objectFit="item.objectFit">
 					</chunlei-video>
 
-					<cover-view class="cover-view-left">
-						<cover-view class="left-view">
+					<view class="view-left">
+						<view class="left-view">
 							<!-- #ifdef APP-PLUS-NVUE -->
-							<text class="left-text">@{{item.at}}</text>
+							<text class="left-text">@{{item.at?item.at:item.nickName}}</text>
 							<!-- #endif -->
 							<!-- #ifndef APP-PLUS-NVUE -->
-							<cover-view class="left-text">@{{item.at}}</cover-view>
+							<view class="left-text">@{{item.at?item.at:item.nickName}}</view>
 							<!-- #endif -->
-						</cover-view>
-						<cover-view class="left-view">
+						</view>
+						<view class="left-view">
 							<!-- #ifdef APP-PLUS-NVUE -->
 							<text class="left-text">{{item.content}}</text>
 							<!-- #endif -->
 							<!-- #ifndef APP-PLUS-NVUE -->
-							<cover-view class="left-text">{{item.content}}</cover-view>
+							<view class="left-text">{{item.content}}</view>
 							<!-- #endif -->
-						</cover-view>
-					</cover-view>
-					<cover-view class="cover-view-right">
-						<cover-image :src="item.avater" class="avater img" @click.stop="tapAvater"></cover-image>
+						</view>
+					</view>
+					<view class="view-right">
+						<image :src="item.avater" class="avater img" @click.stop="tapAvater(item.userId)"></image>
 						<!-- #ifdef APP-PLUS-NVUE -->
-						<text class="right-text-avater">+</text>
+						<text class="right-text-avater" v-if="addConcern" @click="addConcerns(item.userId)">+</text>
 						<text class="right-text"></text>
 						<!-- #endif -->
 						<!-- #ifndef APP-PLUS-NVUE -->
-						<cover-view class="right-text-avater">+</cover-view>
-						<cover-view class="right-text"></cover-view>
+						<view class="right-text-avater" v-if="addConcern" @click="addConcerns(item.userId)">+</view>
+						<view class="right-text"></view>
 						<!-- #endif -->
 
-						<cover-image :src="item.check?'../../static/aixinRed.png':'../../static/aixin.png'" class="img" @click.stop="tapLove"></cover-image>
+						<image :src="item.videoCheck?'../../static/aixinRed.png':'../../static/aixin.png'" class="img" @click.stop="tapLove()"></image>
 
 						<!-- #ifdef APP-PLUS-NVUE -->
-						<text class="right-text">{{item.like}}</text>
+						<text class="right-text">{{item.videoLike}}</text>
 						<!-- #endif -->
 						<!-- #ifndef APP-PLUS-NVUE -->
-						<cover-view class="right-text">{{item.like}}</cover-view>
+						<view class="right-text">{{item.videoLike}}</view>
 						<!-- #endif -->
 
-						<cover-image src="../../static/xiaoxi.png" class="img" @click.stop="showPopup(item.id)"></cover-image>
+						<image src="../../static/xiaoxi.png" class="img" @click.stop="showPopup(item.id)"></image>
 
 						<!-- #ifdef APP-PLUS-NVUE -->
 						<text class="right-text">{{item.comment}}</text>
 						<!-- #endif -->
 						<!-- #ifndef APP-PLUS-NVUE -->
-						<cover-view class="right-text">{{item.comment}}</cover-view>
+						<view class="right-text">{{item.comment}}</view>
 						<!-- #endif -->
 
-						<cover-image src="../../static/share-fill.png" class="img" @click.stop="tapShare()"></cover-image>
+						<image src="../../static/share-fill.png" class="img" @click.stop="tapShare(item.content)"></image>
 
 						<!-- #ifdef APP-PLUS-NVUE -->
 						<text class="right-text">分享</text>
 						<!-- #endif -->
 						<!-- #ifndef APP-PLUS-NVUE -->
-						<cover-view class="right-text">分享</cover-view>
+						<view class="right-text">分享</view>
 						<!-- #endif -->
 
-					</cover-view>
+					</view>
 				</div>
 
 			</swiper-item>
-	
+	          
 		</swiper>
 		<tabar :index="1" />
+		 <popup class="popup" type="bottom" ref="popup" :pHeight="60"   @click="showPopup()"></popup>
 		<view :hidden="canvasFlag"><!-- 海报 要放外面放组件里面 会找不到 canvas-->
 			<canvas class="canvas"  canvas-id="myCanvas" ></canvas><!-- 海报 -->
 		</view>
 		<hchPoster ref="hchPoster" :canvasFlag.sync="canvasFlag" @cancel="canvasCancel" :posterObj.sync="posterData"/>
 		<!-- 分享弹窗-->
-		<cover-view class="share-pro">
-			<cover-view class="share-pro-mask" v-if="deliveryFlag"></cover-view>
-			<cover-view class="share-pro-dialog" :class="deliveryFlag?'open':'close'" >
-				<cover-view class="close-btn" @tap="closeShareEvn">
-					<span class="font_family">&#xe6e6;</span>
-				</cover-view>
-				<cover-view class="share-pro-title">分享</cover-view>
-				<cover-view class="share-pro-body">
-					<cover-view class="share-item">
+		<view class="share-pro" v-if="deliveryFlag">
+			<view class="share-pro-mask" v-if="deliveryFlag"></view>
+			<view class="share-pro-dialog" :class="deliveryFlag?'open':'close'" >
+				<view class="close-btn" @tap="closeShareEvn">
+					<span class="font_family">&#xe6e6;</span> 
+					<!-- <span class="font_family">关闭</span> -->
+				</view>
+				<view class="share-pro-title">分享</view>
+				<view class="share-pro-body">
+					<view class="share-item">
 						<button open-type="share">
-							<cover-view class="font_family share-icon">&#xe6fa;</cover-view>
-							<cover-view >分享给好友</cover-view>
+							<view class="font_family share-icon">&#xe6fa;</view>
+							<view >分享给好友</view>
 						</button>
-					</cover-view>
-					<cover-view class="share-item" @tap="createCanvasImageEvn">
-						<cover-view class="font_family share-icon">&#xe6f9;</cover-view>
-						<cover-view >生成分享图片</cover-view>
-					</cover-view>
-				</cover-view>
+					</view>
+					<view class="share-item" @tap="createCanvasImageEvn">
+						<view class="font_family share-icon">&#xe6f9;</view>
+						<view >生成分享图片</view>
+					</view>
+				</view>
 		
-			</cover-view>
-		</cover-view>
+			</view>
+		</view>
 		
-	    <popup class="popup" type="bottom" ref="popup" :pHeight="60"   @click="showPopup()"></popup>
+	   
 		
 	    
 	</div>
@@ -122,14 +124,15 @@
 		data() {
 			return {
 				sysheight: 0,
+				addConcern:true,
 				videoList: [
 					{
 						id:1,
 						src: 'https://dcloud-img.oss-cn-hangzhou.aliyuncs.com/guide/uniapp/%E7%AC%AC1%E8%AE%B2%EF%BC%88uni-app%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%EF%BC%89-%20DCloud%E5%AE%98%E6%96%B9%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B@20181126.mp4',
 						content: '为什么要选择uni-app？',
 						flag: false,
-						check: false,
-						like: '10w',
+						videoCheck: false,
+						videoLike: '10w',
 						comment: '1045',
 						avater: '../../static/logo.png',
 						initialTime: 0,
@@ -142,8 +145,8 @@
 						src: 'http://baobab.kaiyanapp.com/api/v1/playUrl?vid=129764&resourceType=video&editionType=default&source=aliyun&playUrlType=url_oss',
 						content: '广告有反转：危机感十足！一辆车都比你靠谱',
 						flag: false,
-						check: true,
-						like: '7w',
+						videoCheck: true,
+						videoLike: '7w',
 						comment: '1045',
 						avater: 'http://img.kaiyanapp.com/e44ed5fcfa424ba35761ce5f1339bc16.jpeg?imageMogr2/quality/60/format/jpg',
 						initialTime: 0,
@@ -155,8 +158,8 @@
 						src: 'http://baobab.kaiyanapp.com/api/v1/playUrl?vid=164016&resourceType=video&editionType=default&source=aliyun&playUrlType=url_oss',
 						content: '无辣不欢，你没见过小龙虾的大场面',
 						flag: false,
-						check: false,
-						like: '7w',
+						videoCheck: false,
+						videoLike: '7w',
 						comment: '1045',
 						avater: 'http://img.kaiyanapp.com/7af2bb1bc134fb1115d48f05e9d317f0.jpeg?imageMogr2/quality/60/format/jpg',
 						initialTime: 0,
@@ -171,7 +174,10 @@
 				popupFlag:false,
 				deliveryFlag: false,
 				canvasFlag: true,
-				posterData:{}
+				posterData:{},
+				user:uni.getStorageSync('user'),
+				currentImg:'',
+				currentTitle:''
 			}
 		},
 		created() {
@@ -197,8 +203,50 @@
 			}
 		},
 		methods: {
+			   addConcerns(concernId){
+				   if(!concernId){
+					   return uni.showToast({
+				  			icon: 'none',
+				  			title: `关注失败`
+				  		})	
+				   }
+				   let _this = this
+				   request({
+				   	url: '/index/addConcern', //服务器端地址
+				   	data: {
+				   		userId:this.user.id,
+				   		concernId:concernId
+				   	},
+				   	method: 'post',
+				   	header: {
+				   		'content-type': 'application/json'
+				   	},
+				   	success: (res) => {
+						console.log(res)
+				   		if (res.data.status === 200) {
+				   		  _this.addConcern = false
+							
+				   		}else if(res.data.status===204){
+							
+							uni.showToast({
+											icon: 'none',
+											title: res.data.msg?res.data.msg:''
+								})	
+						}else
+						{
+							uni.showToast({
+											icon: 'none',
+											title: res.data.msg?res.data.msg:''
+								})	
+						}
+				   	},fail:(err)=>{
+						
+					}
+				   });
+			   },
 				showPopup(id){
 				//	this.popupFlag = !this.popupFlag
+				console.log('showPopup')
 				this.$refs.popup.changeShow(id)
 				},
 			getVideoList(){
@@ -243,8 +291,8 @@
 										src: item.data.playUrl,
 										content: item.data.title,
 										flag: false,
-										check: false,
-										like: '7w',
+										videoCheck: false,
+										videoLike: '7w',
 										comment: '1045',
 										at: item.data.author.name,
 										avater: item.data.author.icon,
@@ -263,9 +311,38 @@
 				return promise
 			},
 			tapLove() {
-				this.videoList[this.index].check = !this.videoList[this.index].check
-				this.videoList = [...this.videoList]
-
+				let _this = this
+				
+                //更新点赞
+				request({
+					url: '/index/updateVideoLike',
+				data: {
+					videoLike:!_this.videoList[this.index].videoCheck,
+					userId: _this.user.id?_this.user.id:null,
+					videoId: _this.videoList[this.index].id
+				},
+				method: 'GET',
+				header: {
+					'content-type': 'application/json'
+				},
+				success: (res) => {
+					if (res.data.status === 200) {
+				      _this.videoList[_this.index].videoCheck = !_this.videoList[_this.index].videoCheck
+					  if(_this.videoList[_this.index].videoCheck){
+						  _this.videoList[_this.index].videoLike = _this.videoList[_this.index].videoLike + 1
+					  }else{
+						  _this.videoList[_this.index].videoLike = _this.videoList[_this.index].videoLike - 1
+					  }
+				      _this.videoList = [..._this.videoList]
+				  }else
+				  if (res.data.status === 10101) {
+				  		uni.showToast({
+				  			icon: 'none',
+				  			title: `请先登录`
+				  		})		
+				  }
+				}
+			  })
 			},
 			tapAvater() {
 				uni.showToast({
@@ -279,8 +356,11 @@
 					title: `查看索引为${this.index}的评论`
 				})
 			},
-			tapShare() {
+			tapShare(title,img) {
+				console.log('11111111')
 				this.deliveryFlag = true;
+				this.currentTitle = title;
+				this.currentImg = img
 			},
 			videoPlay(index) {
 				let promise = new Promise((resolve, reject) => {
@@ -303,9 +383,9 @@
 				// 这个是固定写死的小程序码
 				Object.assign(this.posterData,
 				{
-					url:'https://img0.zuipin.cn/mp_zuipin/poster/hch-pro.jpg',//商品主图
+					url:this.currentImg?this.currentImg:'https://img0.zuipin.cn/mp_zuipin/poster/hch-pro.jpg',//商品主图
 					icon:'https://img0.zuipin.cn/mp_zuipin/poster/hch-hyj.png',//醉品价图标
-					title:"诗酒茶系列 武夷大红袍 2018年 花香型中火 一级 体验装 16g",//标题
+					title:this.currentTitle?this.currentTitle:"诗酒茶系列 武夷大红袍 2018年 花香型中火 一级 体验装 16g",//标题
 					discountPrice:"250.00",//折后价格
 					orignPrice:"300.00",//原价
 					code:'https://img0.zuipin.cn/mp_zuipin/poster/hch-code.png',//小程序码
@@ -393,6 +473,7 @@
 		bottom:0px;
 		right:0px;
 		left:0px;
+		z-index:9999;
 	}
 	.swiper-item {
 		flex: 1;
@@ -406,7 +487,7 @@
 		flex: 1;
 	}
 
-	.cover-view-center {
+	.view-center {
 		position: absolute;
 		justify-content: center;
 		align-items: center;
@@ -414,7 +495,7 @@
 		z-index: 999;
 	}
 
-	.cover-view-left {
+	.view-left {
 		position: absolute;
 		margin-left: 10upx;
 		width: 500upx;
@@ -445,7 +526,7 @@
 		border-width: 2px;
 	}
 
-	.cover-view-right {
+	.view-right {
 		position: absolute;
 		bottom: 160upx;
 		right: 20upx;
@@ -453,7 +534,7 @@
 		display: flex;
 		flex-direction: column;
 		/* #endif */
-		z-index: 9999;
+		z-index: 999;
 	}
 
 	.right-text-avater {
@@ -468,7 +549,7 @@
 		border-radius: 50%;
 		text-align: center;
 		line-height: 40upx;
-		z-index: 999;
+		z-index: 1000;
 	}
 
 	.avater-icon {
@@ -522,6 +603,7 @@
 		-webkit-font-smoothing: antialiased;
 		-webkit-text-stroke-width: 0.2px;
 		-moz-osx-font-smoothing: grayscale;
+		z-index:999;
 	  }
 	  /* 按钮去掉边框 */
 	  button::after {
@@ -561,7 +643,7 @@
             width: 100%;
             height: 100%;
             position: fixed;
-			z-index:9999;
+			z-index:998;
             top: 0;
             right: 0;
             bottom: 0;
@@ -577,13 +659,14 @@
             position: relative;
             box-sizing: border-box;
             position: fixed;
-			z-index:9999;
+			z-index:999;
             bottom: 0;
             .close-btn {
                 padding: 20rpx 15rpx;
                 position: absolute;
                 top: 0rpx;
                 right: 29rpx;
+				color:#555555;
             }
             .share-pro-title {
                 font-size: 28rpx;
@@ -598,7 +681,7 @@
                 justify-content:space-around;
                 font-size: 28rpx;
 	            color: #1c1c1c;
-				z-index:9999;
+				z-index:999;
                 .share-item{
                     display: flex;
                     flex-direction:column;

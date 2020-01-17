@@ -175,6 +175,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../utils/request.js */ 24));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -244,7 +245,8 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../utils/reques
 //
 //
 //
-var _default = { data: function data() {return { newPopupFlag: false, commentData: [], pageNum: 1, pageSize: 8, pageCount: 0 };}, props: ["type", 'pHeight', 'popupFlag'], created: function created() {//this.initPopup()
+//
+var _default = { data: function data() {return { newPopupFlag: false, commentData: [], pageNum: 1, pageSize: 8, pageCount: 0 };}, props: ["type", 'pHeight', 'popupFlag'], created: function created() {this.commentData = []; //this.initPopup()
     //this.getCommentInfo()
   }, mounted: function mounted() {this.initPopup(); //this.getCommentInfo()
   }, methods: { getCommentInfo: function getCommentInfo(id) {console.log(id);var _this = this;(0, _request.default)({ url: '/index/getCommentInfo', //服务器端地址

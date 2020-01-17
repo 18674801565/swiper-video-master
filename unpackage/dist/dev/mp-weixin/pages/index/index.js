@@ -291,6 +291,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var _request = _interopRequireDefault(__webpack_require__(/*! ../../utils/request.js */ 24));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance");}function _iterableToArray(iter) {if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) {for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {arr2[i] = arr[i];}return arr2;}}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var chunleiVideo = function chunleiVideo() {return __webpack_require__.e(/*! import() | components/chunlei-video/chunlei-video */ "components/chunlei-video/chunlei-video").then(__webpack_require__.bind(null, /*! ../../components/chunlei-video/chunlei-video.vue */ 61));};var tabar = function tabar() {return Promise.all(/*! import() | components/tabBar/tabBar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/tabBar/tabBar")]).then(__webpack_require__.bind(null, /*! ../../components/tabBar/tabBar.vue */ 68));};var popup = function popup() {return __webpack_require__.e(/*! import() | components/popup/Popup */ "components/popup/Popup").then(__webpack_require__.bind(null, /*! ../../components/popup/Popup */ 75));};var hchPoster = function hchPoster() {return __webpack_require__.e(/*! import() | components/hch-poster/hch-poster */ "components/hch-poster/hch-poster").then(__webpack_require__.bind(null, /*! ../../components/hch-poster/hch-poster.vue */ 82));};var _default =
 
 
@@ -306,14 +308,15 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../utils/reques
   data: function data() {
     return {
       sysheight: 0,
+      addConcern: true,
       videoList: [
       {
         id: 1,
         src: 'https://dcloud-img.oss-cn-hangzhou.aliyuncs.com/guide/uniapp/%E7%AC%AC1%E8%AE%B2%EF%BC%88uni-app%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%EF%BC%89-%20DCloud%E5%AE%98%E6%96%B9%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B@20181126.mp4',
         content: '为什么要选择uni-app？',
         flag: false,
-        check: false,
-        like: '10w',
+        videoCheck: false,
+        videoLike: '10w',
         comment: '1045',
         avater: '../../static/logo.png',
         initialTime: 0,
@@ -326,8 +329,8 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../utils/reques
         src: 'http://baobab.kaiyanapp.com/api/v1/playUrl?vid=129764&resourceType=video&editionType=default&source=aliyun&playUrlType=url_oss',
         content: '广告有反转：危机感十足！一辆车都比你靠谱',
         flag: false,
-        check: true,
-        like: '7w',
+        videoCheck: true,
+        videoLike: '7w',
         comment: '1045',
         avater: 'http://img.kaiyanapp.com/e44ed5fcfa424ba35761ce5f1339bc16.jpeg?imageMogr2/quality/60/format/jpg',
         initialTime: 0,
@@ -339,8 +342,8 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../utils/reques
         src: 'http://baobab.kaiyanapp.com/api/v1/playUrl?vid=164016&resourceType=video&editionType=default&source=aliyun&playUrlType=url_oss',
         content: '无辣不欢，你没见过小龙虾的大场面',
         flag: false,
-        check: false,
-        like: '7w',
+        videoCheck: false,
+        videoLike: '7w',
         comment: '1045',
         avater: 'http://img.kaiyanapp.com/7af2bb1bc134fb1115d48f05e9d317f0.jpeg?imageMogr2/quality/60/format/jpg',
         initialTime: 0,
@@ -355,7 +358,10 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../utils/reques
       popupFlag: false,
       deliveryFlag: false,
       canvasFlag: true,
-      posterData: {} };
+      posterData: {},
+      user: uni.getStorageSync('user'),
+      currentImg: '',
+      currentTitle: '' };
 
   },
   created: function created() {
@@ -381,8 +387,50 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../utils/reques
       }} catch (err) {_didIteratorError = true;_iteratorError = err;} finally {try {if (!_iteratorNormalCompletion && _iterator.return != null) {_iterator.return();}} finally {if (_didIteratorError) {throw _iteratorError;}}}
   },
   methods: {
+    addConcerns: function addConcerns(concernId) {
+      if (!concernId) {
+        return uni.showToast({
+          icon: 'none',
+          title: "\u5173\u6CE8\u5931\u8D25" });
+
+      }
+      var _this = this;
+      (0, _request.default)({
+        url: '/index/addConcern', //服务器端地址
+        data: {
+          userId: this.user.id,
+          concernId: concernId },
+
+        method: 'post',
+        header: {
+          'content-type': 'application/json' },
+
+        success: function success(res) {
+          console.log(res);
+          if (res.data.status === 200) {
+            _this.addConcern = false;
+
+          } else if (res.data.status === 204) {
+
+            uni.showToast({
+              icon: 'none',
+              title: res.data.msg ? res.data.msg : '' });
+
+          } else
+          {
+            uni.showToast({
+              icon: 'none',
+              title: res.data.msg ? res.data.msg : '' });
+
+          }
+        }, fail: function fail(err) {
+
+        } });
+
+    },
     showPopup: function showPopup(id) {
       //	this.popupFlag = !this.popupFlag
+      console.log('showPopup');
       this.$refs.popup.changeShow(id);
     },
     getVideoList: function getVideoList() {
@@ -427,8 +475,8 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../utils/reques
                     src: item.data.playUrl,
                     content: item.data.title,
                     flag: false,
-                    check: false,
-                    like: '7w',
+                    videoCheck: false,
+                    videoLike: '7w',
                     comment: '1045',
                     at: item.data.author.name,
                     avater: item.data.author.icon,
@@ -447,8 +495,37 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../utils/reques
       return promise;
     },
     tapLove: function tapLove() {
-      this.videoList[this.index].check = !this.videoList[this.index].check;
-      this.videoList = _toConsumableArray(this.videoList);
+      var _this = this;
+
+      //更新点赞
+      (0, _request.default)({
+        url: '/index/updateVideoLike',
+        data: {
+          videoLike: !_this.videoList[this.index].videoCheck,
+          userId: _this.user.id ? _this.user.id : null,
+          videoId: _this.videoList[this.index].id },
+
+        method: 'GET',
+        header: {
+          'content-type': 'application/json' },
+
+        success: function success(res) {
+          if (res.data.status === 200) {
+            _this.videoList[_this.index].videoCheck = !_this.videoList[_this.index].videoCheck;
+            if (_this.videoList[_this.index].videoCheck) {
+              _this.videoList[_this.index].videoLike = _this.videoList[_this.index].videoLike + 1;
+            } else {
+              _this.videoList[_this.index].videoLike = _this.videoList[_this.index].videoLike - 1;
+            }
+            _this.videoList = _toConsumableArray(_this.videoList);
+          } else
+          if (res.data.status === 10101) {
+            uni.showToast({
+              icon: 'none',
+              title: "\u8BF7\u5148\u767B\u5F55" });
+
+          }
+        } });
 
     },
     tapAvater: function tapAvater() {
@@ -463,8 +540,11 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../utils/reques
         title: "\u67E5\u770B\u7D22\u5F15\u4E3A".concat(this.index, "\u7684\u8BC4\u8BBA") });
 
     },
-    tapShare: function tapShare() {
+    tapShare: function tapShare(title, img) {
+      console.log('11111111');
       this.deliveryFlag = true;
+      this.currentTitle = title;
+      this.currentImg = img;
     },
     videoPlay: function videoPlay(index) {var _this4 = this;
       var promise = new Promise(function (resolve, reject) {
@@ -487,9 +567,9 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ../../utils/reques
       // 这个是固定写死的小程序码
       Object.assign(this.posterData,
       {
-        url: 'https://img0.zuipin.cn/mp_zuipin/poster/hch-pro.jpg', //商品主图
+        url: this.currentImg ? this.currentImg : 'https://img0.zuipin.cn/mp_zuipin/poster/hch-pro.jpg', //商品主图
         icon: 'https://img0.zuipin.cn/mp_zuipin/poster/hch-hyj.png', //醉品价图标
-        title: "诗酒茶系列 武夷大红袍 2018年 花香型中火 一级 体验装 16g", //标题
+        title: this.currentTitle ? this.currentTitle : "诗酒茶系列 武夷大红袍 2018年 花香型中火 一级 体验装 16g", //标题
         discountPrice: "250.00", //折后价格
         orignPrice: "300.00", //原价
         code: 'https://img0.zuipin.cn/mp_zuipin/poster/hch-code.png' //小程序码

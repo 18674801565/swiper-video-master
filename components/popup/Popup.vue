@@ -1,28 +1,29 @@
 <template>
-	<div v-show='newPopupFlag' class="popup" id="popup">
+	<view v-if='newPopupFlag' class="popup" id="popup">
 		<view class="popup-top">
 			<view class="top-text">{{pageCount}}条评论</view>
 			<view class="top-right-icon">
-				<image class="close-icon" src="../../static/close.png" @click="closePopup()"></image>
+				<cover-image class="close-icon" src="../../static/close.png" @click="closePopup()"></cover-image>
 			</view>
 		</view>
 		<view class="popup-body">
 			<view class="group-list" v-if="commentData&&commentData.length>0">
 			<view class="comment-group" v-for="(item,i) in commentData" :key="i">
 				<view :class="j===0?'reply':'replyed'" v-for="(item2,j) in item" :key="j">
-					<image class="comment-avator" :src="item2.avatarUrl"></image>
+					<cover-image class="comment-avator" :src="item2.avatarUrl"></cover-image>
 					<view class="comment-body">
 						<view class="comment-name">{{item2.replyNickName}}</view>
 						<view class="comment-info">
-					    <span>{{item2.content}}
-						<span class="comment-time">{{item.createTime}}</span>
-						</span>
+					    <view>{{item2.content}}
+						<view class="comment-time">{{item.createTime}}</view>
+						</view>
 						
 						</view>
+						
 					</view>
 					<view class="comment-like-num">
-						<image class="comment-like" src="../../static/aixinhui.png"></image>
-						<span class="like-num">{{item2.commentLike}}</span>
+						<cover-image class="comment-like" src="../../static/aixinhui.png"></cover-image>
+						<view class="like-num">{{item2.commentLike}}</view>
 					</view>
 				</view>
 	<!-- 			<view class="replyed">
@@ -64,7 +65,7 @@
 		  </view>
 		  <view class="null-comment" v-else>空空如也</view>
 		</view>
-	</div>
+	</view>
 </template>
 
 <script>
@@ -81,6 +82,7 @@
 		},
 		props: ["type",'pHeight','popupFlag'],
 		created(){
+			this.commentData = []
 			//this.initPopup()
 			//this.getCommentInfo()
 		},
@@ -159,7 +161,9 @@
 				.top-right-icon{
 					position: absolute;
 					height: 100%;
+					z-index: 9999;
 					right: 20rpx;
+					top: 10rpx;
 					.close-icon{
 						height: 50rpx;
 						width:50rpx;

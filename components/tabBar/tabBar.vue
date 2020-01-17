@@ -1,28 +1,19 @@
 <template>
-	<cover-view class="wap">
-		<cover-view class="wap_relative" :style="{'background-color':selection == 1 ? 'rgba(0,0,0,0.05)' : '#000'}">
-			<cover-view class="tabar" @click.stop="redirectTo('../../pages/index/index')">
-				<cover-view :class="[selection == 1 ? 'cover-span spancolor' : 'cover-span']">首页</cover-view>
-			</cover-view>
-			<cover-view class="tabar" @click.stop="redirectTo('../../pages/Release/Release')">
-				<cover-image class="issue" src="../../static/jia.png"></cover-image>
-			</cover-view>
-			<cover-view class="tabar" @click.stop="user?redirectTo('../../pages/my/my'):login()">
-				<cover-view  :class="[selection == 2 ? 'cover-span spancolor' : 'cover-span']">我的</cover-view>
-			</cover-view>
-		</cover-view>
-		<view class="shade" v-if="shade">
-			<view class="shade-relative">
-				<view class="shade-main">
-					<view class="title">
-						授权
-					</view>
-					<button @click="getUserInfo" open-type="getUserInfo">授权</button>
-				</view>
+	<view class="wap">
+		<view class="wap_relative" :style="{'background-color':selection == 1 ? 'rgba(0,0,0,0.05)' : '#000'}">
+			<view class="tabar" @click.stop="redirectTo('../../pages/index/index')">
+				<view :class="[selection == 1 ? 'cover-span spancolor' : 'cover-span']">首页</view>
 			</view>
-		
+			<view class="tabar" @click.stop="redirectTo('../../pages/Release/Release')">
+				<cover-image class="issue" src="../../static/jia.png"></cover-image>
+			</view>
+			<view class="tabar" >
+				<!-- <view  :class="[selection == 2 ? 'cover-span spancolor' : 'cover-span']">我的</view> -->
+				<button :class="[selection == 2 ? 'cover-span spancolor' : 'cover-span']" @click="user?redirectTo('../../pages/my/my'):getMyUserInfo()" open-type="getUserInfo">我的</button>
+			</view>
 		</view>
-	</cover-view>
+
+	</view>
 </template>
 <script>
 	import request from "../../utils/request.js"
@@ -31,7 +22,6 @@
 		name: "taber",
 		data() {
 			return {
-				shade:false,
 				selection: 1,
 				user:uni.getStorageSync('user'),
 				avatarUrl:null,
@@ -42,6 +32,30 @@
 		created() {
 			this.selection = this.index;
 		},
+		 onLoad() {
+		    // 查看是否授权
+		    wx.getSetting({
+		      success(res) {
+		        if (res.authSetting['scope.userInfo']) {
+		          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+		          wx.getUserInfo({
+		            success(res) {
+		              console.log(res.userInfo)
+		            }
+		          })
+		        }
+		      },
+			  fail(){
+				 //未授权，授权
+				wx.getUserInfo({
+				  success(res) {
+				    console.log(res.userInfo)
+				  }
+				})  
+			  }
+			  
+		    })
+		  },
 		methods: {
 						redirectTo(e) {
 							uni.navigateTo({
@@ -51,7 +65,6 @@
 						//��¼
 						login() {
 							let _this = this;
-							_this.shade=false;
 							// uni.showLoading({
 							//     title: '��¼��...'
 							// });
@@ -73,16 +86,48 @@
 										header: {
 											'content-type': 'application/json'
 										},
-										success: (res) => {
+										success: async (res) => {
 											//openId����SessionKdy�洢//����loading
 											console.log(res)
 											if (res.data.status === 200) {
 												uni.setStorageSync('token', res.data.token);
+												await uni.getUserInfo({
+													provider: 'weixin',
+													success: function(infoRes) {
+														console.log('第一次授权成功')
+													    _this.nickName = infoRes.userInfo.nickName; //�ǳ�
+													    _this.avatarUrl = infoRes.userInfo.avatarUrl; //ͷ��
+													    _this.updateUserInfo(); 
+													
+													},	
+													fail:function(){
+														console.log('第一次授权失败了')
+														uni.getUserInfo({
+															provider: 'weixin',
+															success: function(infoRes) {
+																console.log('第二次授权成功')
+																
+																
+															},	
+															fail:function(){
+																console.log('第二次授权失败了')
+																uni.clearStorageSync('token');
+																uni.clearStorageSync('user');
+															}
+														});
+													}
+												});
+												
+											}else if(res.data.status === 10107){
+												uni.clearStorageSync('token');
+												uni.clearStorageSync('user');
+												uni.showToast({
+													icon: 'none',
+													title: `登录已失效`
+												})	
 											}
 											console.log('token', uni.getStorageSync('token'))
 											//��Ȩ�ɹ�����ȡ�û����ݴ������ݿ�
-											_this.shade = true
-											// uni.hideLoading();
 										}
 									});
 								},
@@ -115,18 +160,11 @@
 								}
 							});
 						},
-						async getUserInfo(){
+						async getMyUserInfo(){
+							await this.login()
 							let _this = this
 							//�ǵ�һ����Ȩ��ȡ�û���Ϣ
-							await uni.getUserInfo({
-								provider: 'weixin',
-								success: function(infoRes) {
-									//��ȡ�û���Ϣ����������Ϣ���·���
-									_this.nickName = infoRes.userInfo.nickName; //�ǳ�
-									_this.avatarUrl = infoRes.userInfo.avatarUrl; //ͷ��
-									_this.updateUserInfo(); //���ø�����Ϣ����
-								}
-							});
+						
 						}
 		}
 	};
@@ -140,7 +178,7 @@
 		height: 50px;
 		// background-color: #000;
 		width: 100%;
-		z-index: 999;
+		z-index: 998;
 	}
 
 	.wap_relative {
@@ -148,6 +186,8 @@
 		height: 50px;
 		display: flex;
 		align-items: center;
+		direction: row;
+		flex-direction: row;
 		justify-content: space-around;
 	}
 
@@ -173,34 +213,9 @@
 			display: inline;
 			font-size: 16px;
 			color: #FFFFFF;
+			border: 0rpx;
+			background-color: rgba(0,0,0,0);
 		}
 	}
-	.shade{
-		position: fixed;
-		left: 0;
-		top:0;
-		width: 100%;
-		height: 100%;
-		background-color: rgba(0,0,0,0.4);
-		z-index: 99;
-		.shade-relative{
-			position: relative;
-			width: 100%;
-			height: 100%;
-		}
-		.shade-main{
-			position: absolute;
-			left:50%;
-			top:50%;
-			transform: translate(-50%,-50%);
-			height: 300rpx;
-			width: 400rpx;
-			border-radius:8rpx ;
-			background-color: #FFFFFF;
-			display: flex;
-			flex-direction: column;
-			justify-content: space-around;
-			align-items: center;
-		}
-	}
+
 </style>
